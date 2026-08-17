@@ -1,603 +1,1472 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>banabasss</title>
-
-    <!-- Supabase -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            min-height: 100vh;
-            overflow: hidden;
-            background: #02030a;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: Arial, sans-serif;
-        }
-
-        /* =========================
-           UZAY YILDIZLARI
-        ========================= */
-
-        .stars {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-        }
-
-        .star {
-            position: absolute;
-            background: white;
-            border-radius: 50%;
-            box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
-        }
-
-        /* =========================
-           ANA İÇERİK
-        ========================= */
-
-        .container {
-            position: relative;
-            z-index: 2;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 24px;
-        }
-
-        .counter {
-            color: white;
-            font-size: 26px;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.35);
-        }
 
-        /* =========================
-           ANA BUTON
-        ========================= */
+<meta charset="UTF-8">
 
-        .click-button {
-            position: relative;
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
-            width: 360px;
-            height: 180px;
+<title>banabasss</title>
 
-            border: none;
-            border-radius: 30px;
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-            background: linear-gradient(
-                to bottom,
-                #ff3b3b,
-                #d40000
-            );
-
-            color: white;
-            font-size: 42px;
-            font-weight: 900;
-            letter-spacing: 2px;
-
-            cursor: pointer;
+<style>
 
-            box-shadow:
-                0 18px 0 #8b0000,
-                0 25px 35px rgba(0, 0, 0, 0.6);
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-            transition:
-                transform 0.08s ease,
-                box-shadow 0.08s ease;
-        }
+body {
 
-        .click-button:active {
-            transform: translateY(18px);
+    min-height: 100vh;
 
-            box-shadow:
-                0 0 0 #8b0000,
-                0 8px 20px rgba(0, 0, 0, 0.5);
-        }
+    overflow-x: hidden;
 
-        .click-button::before {
-            content: "";
+    background: #02030a;
 
-            position: absolute;
+    color: white;
 
-            top: 10px;
-            left: 12px;
-            right: 12px;
-            height: 35px;
+    font-family: Arial, sans-serif;
+}
 
-            border-radius: 20px;
 
-            background: rgba(255, 255, 255, 0.18);
+/* =========================
+   STARS
+========================= */
 
-            pointer-events: none;
-        }
+.stars {
 
-        /* =========================
-           GİRİŞ EKRANI
-        ========================= */
+    position: fixed;
 
-        .login-overlay {
-            position: fixed;
-            inset: 0;
+    inset: 0;
 
-            z-index: 10;
+    pointer-events: none;
 
-            display: flex;
-            justify-content: center;
-            align-items: center;
+    z-index: 0;
+}
 
-            background: rgba(0, 0, 0, 0.45);
+.star {
 
-            backdrop-filter: blur(9px);
-            -webkit-backdrop-filter: blur(9px);
+    position: absolute;
 
-            transition: opacity 0.35s ease;
-        }
+    background: white;
 
-        .login-overlay.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
+    border-radius: 50%;
 
-        .login-box {
-            width: min(90%, 390px);
+    box-shadow:
+        0 0 6px rgba(255,255,255,.8);
+}
 
-            padding: 38px 30px;
 
-            border-radius: 24px;
+/* =========================
+   USER INFO
+========================= */
 
-            background: rgba(15, 17, 30, 0.92);
+.user-info {
 
-            border: 1px solid rgba(255, 255, 255, 0.12);
+    position: fixed;
 
-            box-shadow:
-                0 25px 70px rgba(0, 0, 0, 0.65),
-                inset 0 0 30px rgba(255, 255, 255, 0.025);
+    top: 18px;
 
-            text-align: center;
+    right: 18px;
 
-            color: white;
-        }
+    z-index: 5;
 
-        .login-title {
-            font-size: 34px;
-            font-weight: 900;
-            letter-spacing: 2px;
-            margin-bottom: 8px;
-        }
+    padding: 10px 15px;
 
-        .login-subtitle {
-            color: #aaa;
-            font-size: 15px;
-            margin-bottom: 28px;
-        }
+    border-radius: 12px;
 
-        .google-button,
-        .guest-button {
-            width: 100%;
-            height: 52px;
+    background:
+        rgba(255,255,255,.07);
 
-            border-radius: 12px;
+    border:
+        1px solid rgba(255,255,255,.12);
 
-            font-size: 16px;
-            font-weight: 700;
+    font-size: 14px;
+}
 
-            cursor: pointer;
 
-            transition:
-                transform 0.15s ease,
-                opacity 0.15s ease;
-        }
+/* =========================
+   MAIN
+========================= */
 
-        .google-button:hover,
-        .guest-button:hover {
-            transform: translateY(-2px);
-        }
+.container {
 
-        .google-button {
-            border: none;
+    position: relative;
 
-            background: white;
-            color: #222;
-        }
+    z-index: 2;
 
-        .guest-button {
-            margin-top: 12px;
+    min-height: 100vh;
 
-            background: transparent;
-            color: white;
+    display: flex;
 
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
+    flex-direction: column;
 
-        .guest-button:hover {
-            background: rgba(255, 255, 255, 0.06);
-        }
+    justify-content: center;
 
-        .login-status {
-            min-height: 20px;
-            margin-top: 18px;
+    align-items: center;
 
-            color: #aaa;
-            font-size: 13px;
-        }
+    gap: 24px;
+}
 
-        /* =========================
-           KULLANICI BİLGİSİ
-        ========================= */
 
-        .user-info {
-            position: fixed;
+.counter {
 
-            top: 20px;
-            right: 20px;
+    color: white;
 
-            z-index: 5;
+    font-size: 26px;
 
-            color: white;
+    font-weight: 700;
 
-            padding: 9px 14px;
+    letter-spacing: 2px;
 
-            border-radius: 12px;
+    text-shadow:
+        0 0 10px
+        rgba(255,255,255,.35);
+}
 
-            background: rgba(255, 255, 255, 0.07);
 
-            border: 1px solid rgba(255, 255, 255, 0.1);
+/* =========================
+   CLICK BUTTON
+========================= */
 
-            font-size: 13px;
-        }
+.click-button {
 
-        /* =========================
-           TELEFON
-        ========================= */
+    position: relative;
 
-        @media (max-width: 600px) {
+    width: 360px;
 
-            .click-button {
-                width: 280px;
-                height: 150px;
-                font-size: 34px;
-            }
+    height: 180px;
 
-            .counter {
-                font-size: 22px;
-            }
+    border: none;
 
-            .login-box {
-                padding: 32px 22px;
-            }
+    border-radius: 30px;
 
-            .login-title {
-                font-size: 29px;
-            }
-        }
-    </style>
+    background:
+        linear-gradient(
+            to bottom,
+            #ff3b3b,
+            #d40000
+        );
+
+    color: white;
+
+    font-size: 42px;
+
+    font-weight: 900;
+
+    letter-spacing: 2px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 18px 0 #8b0000,
+        0 25px 35px
+        rgba(0,0,0,.6);
+
+    transition:
+        transform .08s ease,
+        box-shadow .08s ease;
+}
+
+.click-button:active {
+
+    transform:
+        translateY(18px);
+
+    box-shadow:
+        0 0 0 #8b0000,
+        0 8px 20px
+        rgba(0,0,0,.5);
+}
+
+.click-button::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 10px;
+
+    left: 12px;
+
+    right: 12px;
+
+    height: 35px;
+
+    border-radius: 20px;
+
+    background:
+        rgba(255,255,255,.18);
+
+    pointer-events: none;
+}
+
+
+/* =========================
+   LEADERBOARD BUTTON
+========================= */
+
+.leaderboard-button {
+
+    padding: 12px 22px;
+
+    border-radius: 12px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.15);
+
+    background:
+        rgba(255,255,255,.07);
+
+    color: white;
+
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+
+/* =========================
+   OVERLAY
+========================= */
+
+.overlay {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 20;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    background:
+        rgba(0,0,0,.5);
+
+    backdrop-filter:
+        blur(10px);
+
+    -webkit-backdrop-filter:
+        blur(10px);
+
+    opacity: 1;
+
+    transition:
+        opacity .25s ease;
+}
+
+.overlay.hidden {
+
+    opacity: 0;
+
+    pointer-events: none;
+}
+
+
+/* =========================
+   MODAL
+========================= */
+
+.modal {
+
+    width:
+        min(92%, 420px);
+
+    padding: 32px 26px;
+
+    border-radius: 24px;
+
+    background:
+        rgba(15,17,30,.96);
+
+    border:
+        1px solid
+        rgba(255,255,255,.12);
+
+    box-shadow:
+        0 25px 70px
+        rgba(0,0,0,.7);
+
+    text-align: center;
+}
+
+.modal h1 {
+
+    font-size: 30px;
+
+    margin-bottom: 10px;
+}
+
+.modal p {
+
+    color: #aaa;
+
+    font-size: 14px;
+
+    margin-bottom: 22px;
+}
+
+
+/* =========================
+   INPUT
+========================= */
+
+.nickname-input {
+
+    width: 100%;
+
+    height: 52px;
+
+    padding: 0 15px;
+
+    border-radius: 12px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.15);
+
+    background:
+        rgba(255,255,255,.06);
+
+    color: white;
+
+    outline: none;
+
+    font-size: 16px;
+
+    text-align: center;
+}
+
+
+/* =========================
+   BUTTONS
+========================= */
+
+.primary-button,
+.secondary-button,
+.google-button,
+.guest-button {
+
+    width: 100%;
+
+    height: 52px;
+
+    margin-top: 12px;
+
+    border-radius: 12px;
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+.primary-button {
+
+    border: none;
+
+    background:
+        #ff3030;
+
+    color: white;
+}
+
+.secondary-button {
+
+    border:
+        1px solid
+        rgba(255,255,255,.15);
+
+    background:
+        rgba(255,255,255,.05);
+
+    color: white;
+}
+
+.google-button {
+
+    border: none;
+
+    background: white;
+
+    color: #222;
+}
+
+.guest-button {
+
+    border:
+        1px solid
+        rgba(255,255,255,.15);
+
+    background: transparent;
+
+    color: white;
+}
+
+
+/* =========================
+   LEADERBOARD
+========================= */
+
+.leaderboard-list {
+
+    max-height: 380px;
+
+    overflow-y: auto;
+
+    margin-top: 20px;
+}
+
+.leader-row {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 13px 10px;
+
+    margin-bottom: 7px;
+
+    border-radius: 10px;
+
+    background:
+        rgba(255,255,255,.05);
+}
+
+.rank {
+
+    width: 40px;
+
+    font-weight: 900;
+}
+
+.nick {
+
+    flex: 1;
+
+    text-align: left;
+}
+
+.score {
+
+    font-weight: 900;
+}
+
+
+/* =========================
+   STATUS
+========================= */
+
+.status {
+
+    min-height: 20px;
+
+    margin-top: 15px;
+
+    color: #aaa;
+
+    font-size: 13px;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:600px) {
+
+    .click-button {
+
+        width: 280px;
+
+        height: 150px;
+
+        font-size: 34px;
+    }
+
+    .counter {
+
+        font-size: 22px;
+    }
+
+    .user-info {
+
+        top: 10px;
+
+        right: 10px;
+    }
+}
+
+</style>
+
 </head>
+
 
 <body>
 
-    <!-- =========================
-         YILDIZLAR
-    ========================= -->
 
-    <div class="stars"></div>
+<div class="stars"></div>
 
 
-    <!-- =========================
-         ANA OYUN
-    ========================= -->
+<div class="user-info" id="userInfo">
+    Guest
+</div>
 
-    <div class="container">
 
-        <div class="counter">
-            0 CLICKS
+<div class="container">
+
+    <div class="counter" id="counter">
+        0 CLICKS
+    </div>
+
+    <button
+        class="click-button"
+        id="clickButton"
+    >
+        CLICK ME
+    </button>
+
+    <button
+        class="leaderboard-button"
+        id="leaderboardButton"
+    >
+        🏆 GLOBAL LEADERBOARD
+    </button>
+
+</div>
+
+
+<!-- =========================
+     LOGIN
+========================= -->
+
+<div
+    class="overlay"
+    id="loginOverlay"
+>
+
+    <div class="modal">
+
+        <h1>BANABASSS</h1>
+
+        <p>
+            Choose how you want to enter
+        </p>
+
+        <button
+            class="google-button"
+            id="googleButton"
+        >
+            🔵 Continue with Google
+        </button>
+
+        <button
+            class="guest-button"
+            id="guestButton"
+        >
+            👻 Continue as Guest
+        </button>
+
+        <div
+            class="status"
+            id="loginStatus"
+        ></div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     NICKNAME
+========================= -->
+
+<div
+    class="overlay hidden"
+    id="nicknameOverlay"
+>
+
+    <div class="modal">
+
+        <h1>Choose your nickname</h1>
+
+        <p>
+            This is the name that will appear on the leaderboard.
+        </p>
+
+        <input
+            class="nickname-input"
+            id="nicknameInput"
+            maxlength="20"
+            placeholder="Your nickname"
+        >
+
+        <button
+            class="primary-button"
+            id="saveNicknameButton"
+        >
+            Continue
+        </button>
+
+        <div
+            class="status"
+            id="nicknameStatus"
+        ></div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     CHANGE NICKNAME
+========================= -->
+
+<div
+    class="overlay hidden"
+    id="changeNicknameOverlay"
+>
+
+    <div class="modal">
+
+        <h1>Change nickname</h1>
+
+        <p id="cooldownText">
+            You can change your nickname here.
+        </p>
+
+        <input
+            class="nickname-input"
+            id="changeNicknameInput"
+            maxlength="20"
+            placeholder="New nickname"
+        >
+
+        <button
+            class="primary-button"
+            id="changeNicknameButton"
+        >
+            Change nickname
+        </button>
+
+        <button
+            class="secondary-button"
+            id="closeNicknameButton"
+        >
+            Cancel
+        </button>
+
+        <div
+            class="status"
+            id="changeNicknameStatus"
+        ></div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     LEADERBOARD
+========================= -->
+
+<div
+    class="overlay hidden"
+    id="leaderboardOverlay"
+>
+
+    <div class="modal">
+
+        <h1>🏆 GLOBAL</h1>
+
+        <p>
+            Top clickers
+        </p>
+
+        <div
+            class="leaderboard-list"
+            id="leaderboardList"
+        >
         </div>
 
-        <button class="click-button">
-            CLICK ME
+        <button
+            class="secondary-button"
+            id="closeLeaderboardButton"
+        >
+            Close
         </button>
 
     </div>
 
-
-    <!-- =========================
-         KULLANICI BİLGİSİ
-    ========================= -->
-
-    <div class="user-info" id="userInfo">
-        Guest
-    </div>
+</div>
 
 
-    <!-- =========================
-         GİRİŞ PANELİ
-    ========================= -->
-
-    <div class="login-overlay" id="loginOverlay">
-
-        <div class="login-box">
-
-            <div class="login-title">
-                BANABASSS
-            </div>
-
-            <div class="login-subtitle">
-                Ready to click?
-            </div>
-
-            <button
-                class="google-button"
-                id="googleButton"
-            >
-                🔵 Continue with Google
-            </button>
-
-            <button
-                class="guest-button"
-                id="guestButton"
-            >
-                👻 Continue as Guest
-            </button>
-
-            <div
-                class="login-status"
-                id="loginStatus"
-            ></div>
-
-        </div>
-
-    </div>
+<script>
 
 
-    <script>
+/* =========================
+   SUPABASE
+========================= */
 
-        /* =========================
-           SUPABASE AYARLARI
-        ========================= */
+const SUPABASE_URL =
+    "https://usvrsrodbivsjrxityzb.supabase.co";
 
-        const SUPABASE_URL =
-            "https://usvrsrodbivsjrxityzb.supabase.co";
-
-        const SUPABASE_PUBLISHABLE_KEY =
-            "sb_publishable_QUghnr59x4oH65LZqQW5zg_7qR7yMr4";
+const SUPABASE_PUBLISHABLE_KEY =
+    "BURAYA_PUBLISHABLE_KEY";
 
 
-        const supabaseClient =
-            window.supabase.createClient(
-                SUPABASE_URL,
-                SUPABASE_PUBLISHABLE_KEY
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+    );
+
+
+/* =========================
+   ELEMENTS
+========================= */
+
+const loginOverlay =
+    document.getElementById(
+        "loginOverlay"
+    );
+
+const nicknameOverlay =
+    document.getElementById(
+        "nicknameOverlay"
+    );
+
+const changeNicknameOverlay =
+    document.getElementById(
+        "changeNicknameOverlay"
+    );
+
+const leaderboardOverlay =
+    document.getElementById(
+        "leaderboardOverlay"
+    );
+
+const googleButton =
+    document.getElementById(
+        "googleButton"
+    );
+
+const guestButton =
+    document.getElementById(
+        "guestButton"
+    );
+
+const clickButton =
+    document.getElementById(
+        "clickButton"
+    );
+
+const counter =
+    document.getElementById(
+        "counter"
+    );
+
+const userInfo =
+    document.getElementById(
+        "userInfo"
+    );
+
+const nicknameInput =
+    document.getElementById(
+        "nicknameInput"
+    );
+
+const saveNicknameButton =
+    document.getElementById(
+        "saveNicknameButton"
+    );
+
+const leaderboardButton =
+    document.getElementById(
+        "leaderboardButton"
+    );
+
+const leaderboardList =
+    document.getElementById(
+        "leaderboardList"
+    );
+
+const changeNicknameInput =
+    document.getElementById(
+        "changeNicknameInput"
+    );
+
+const changeNicknameButton =
+    document.getElementById(
+        "changeNicknameButton"
+    );
+
+const closeNicknameButton =
+    document.getElementById(
+        "closeNicknameButton"
+    );
+
+const closeLeaderboardButton =
+    document.getElementById(
+        "closeLeaderboardButton"
+    );
+
+const loginStatus =
+    document.getElementById(
+        "loginStatus"
+    );
+
+const nicknameStatus =
+    document.getElementById(
+        "nicknameStatus"
+    );
+
+const changeNicknameStatus =
+    document.getElementById(
+        "changeNicknameStatus"
+    );
+
+const cooldownText =
+    document.getElementById(
+        "cooldownText"
+    );
+
+
+/* =========================
+   STATE
+========================= */
+
+let currentUser = null;
+
+let isGuest = false;
+
+let clicks = 0;
+
+let currentNickname = null;
+
+
+/* =========================
+   STARS
+========================= */
+
+const stars =
+    document.querySelector(".stars");
+
+for(let i = 0; i < 150; i++) {
+
+    const star =
+        document.createElement("div");
+
+    star.className = "star";
+
+    star.style.left =
+        Math.random() * 100 + "%";
+
+    star.style.top =
+        Math.random() * 100 + "%";
+
+    const size =
+        Math.random() * 3 + 1;
+
+    star.style.width =
+        size + "px";
+
+    star.style.height =
+        size + "px";
+
+    stars.appendChild(star);
+}
+
+
+/* =========================
+   HELPERS
+========================= */
+
+function show(element) {
+
+    element.classList.remove(
+        "hidden"
+    );
+}
+
+function hide(element) {
+
+    element.classList.add(
+        "hidden"
+    );
+}
+
+function updateCounter() {
+
+    counter.textContent =
+        clicks +
+        (clicks === 1
+            ? " CLICK"
+            : " CLICKS");
+}
+
+
+/* =========================
+   GOOGLE
+========================= */
+
+googleButton.addEventListener(
+    "click",
+    async () => {
+
+        loginStatus.textContent =
+            "Opening Google...";
+
+        const { error } =
+            await supabaseClient.auth
+                .signInWithOAuth({
+
+                    provider: "google",
+
+                    options: {
+
+                        redirectTo:
+                            window.location.origin
+                    }
+
+                });
+
+        if(error) {
+
+            console.error(error);
+
+            loginStatus.textContent =
+                error.message;
+        }
+    }
+);
+
+
+/* =========================
+   GUEST
+========================= */
+
+guestButton.addEventListener(
+    "click",
+    () => {
+
+        isGuest = true;
+
+        currentUser = null;
+
+        currentNickname = null;
+
+        userInfo.textContent =
+            "👻 Guest";
+
+        hide(loginOverlay);
+
+        clicks = 0;
+
+        updateCounter();
+    }
+);
+
+
+/* =========================
+   LOAD PROFILE
+========================= */
+
+async function loadProfile() {
+
+    if(!currentUser) {
+        return;
+    }
+
+    const { data, error } =
+        await supabaseClient
+            .from("leadboard")
+            .select(
+                "username, clicks, nickname_changed_at"
+            )
+            .eq(
+                "user_id",
+                currentUser.id
+            )
+            .maybeSingle();
+
+    if(error) {
+
+        console.error(error);
+
+        return;
+    }
+
+    if(!data) {
+
+        console.error(
+            "Profile not found"
+        );
+
+        return;
+    }
+
+    currentNickname =
+        data.username;
+
+    clicks =
+        data.clicks || 0;
+
+    updateCounter();
+
+    if(currentNickname) {
+
+        userInfo.textContent =
+            "👤 " + currentNickname;
+
+        hide(nicknameOverlay);
+
+    } else {
+
+        show(nicknameOverlay);
+
+        nicknameInput.focus();
+    }
+}
+
+
+/* =========================
+   SAVE FIRST NICKNAME
+========================= */
+
+saveNicknameButton.addEventListener(
+    "click",
+    async () => {
+
+        const nickname =
+            nicknameInput.value.trim();
+
+        if(!nickname) {
+
+            nicknameStatus.textContent =
+                "Enter a nickname.";
+
+            return;
+        }
+
+        nicknameStatus.textContent =
+            "Saving...";
+
+        const { data, error } =
+            await supabaseClient
+                .rpc(
+                    "change_nickname",
+                    {
+                        new_nickname:
+                            nickname
+                    }
+                );
+
+        if(error) {
+
+            nicknameStatus.textContent =
+                error.message;
+
+            return;
+        }
+
+        currentNickname =
+            data;
+
+        userInfo.textContent =
+            "👤 " + currentNickname;
+
+        hide(nicknameOverlay);
+
+        nicknameStatus.textContent =
+            "";
+    }
+);
+
+
+/* =========================
+   CLICK
+========================= */
+
+clickButton.addEventListener(
+    "click",
+    async () => {
+
+        if(isGuest) {
+
+            clicks++;
+
+            updateCounter();
+
+            return;
+        }
+
+        if(!currentUser) {
+
+            show(loginOverlay);
+
+            return;
+        }
+
+        const { data, error } =
+            await supabaseClient
+                .rpc(
+                    "increment_clicks"
+                );
+
+        if(error) {
+
+            console.error(error);
+
+            return;
+        }
+
+        clicks = data;
+
+        updateCounter();
+    }
+);
+
+
+/* =========================
+   LEADERBOARD
+========================= */
+
+leaderboardButton.addEventListener(
+    "click",
+    async () => {
+
+        show(leaderboardOverlay);
+
+        leaderboardList.innerHTML =
+            "<p>Loading...</p>";
+
+        const { data, error } =
+            await supabaseClient
+                .from("leadboard")
+                .select(
+                    "username, clicks"
+                )
+                .not(
+                    "username",
+                    "is",
+                    null
+                )
+                .order(
+                    "clicks",
+                    {
+                        ascending: false
+                    }
+                )
+                .limit(100);
+
+        if(error) {
+
+            console.error(error);
+
+            leaderboardList.innerHTML =
+                "<p>Could not load leaderboard.</p>";
+
+            return;
+        }
+
+        if(!data.length) {
+
+            leaderboardList.innerHTML =
+                "<p>No players yet.</p>";
+
+            return;
+        }
+
+        leaderboardList.innerHTML = "";
+
+        data.forEach(
+            (player, index) => {
+
+                const row =
+                    document.createElement(
+                        "div"
+                    );
+
+                row.className =
+                    "leader-row";
+
+                row.innerHTML = `
+                    <div class="rank">
+                        ${index + 1}
+                    </div>
+
+                    <div class="nick">
+                        ${escapeHtml(
+                            player.username
+                        )}
+                    </div>
+
+                    <div class="score">
+                        ${Number(
+                            player.clicks || 0
+                        ).toLocaleString()}
+                    </div>
+                `;
+
+                leaderboardList.appendChild(
+                    row
+                );
+            }
+        );
+    }
+);
+
+
+/* =========================
+   CHANGE NICKNAME
+========================= */
+
+userInfo.addEventListener(
+    "click",
+    async () => {
+
+        if(!currentUser || !currentNickname) {
+            return;
+        }
+
+        show(changeNicknameOverlay);
+
+        changeNicknameInput.value = "";
+
+        changeNicknameStatus.textContent =
+            "";
+
+        const { data, error } =
+            await supabaseClient
+                .from("leadboard")
+                .select(
+                    "nickname_changed_at"
+                )
+                .eq(
+                    "user_id",
+                    currentUser.id
+                )
+                .maybeSingle();
+
+        if(error || !data) {
+
+            cooldownText.textContent =
+                "Nickname settings unavailable.";
+
+            return;
+        }
+
+        if(!data.nickname_changed_at) {
+
+            cooldownText.textContent =
+                "You can change your nickname.";
+
+            return;
+        }
+
+        const lastChange =
+            new Date(
+                data.nickname_changed_at
             );
 
+        const nextChange =
+            new Date(
+                lastChange.getTime() +
+                30 * 24 * 60 * 60 * 1000
+            );
 
-        /* =========================
-           YILDIZLARI OLUŞTUR
-        ========================= */
+        const now =
+            new Date();
 
-        const starsContainer =
-            document.querySelector(".stars");
+        if(now >= nextChange) {
 
-        for (let i = 0; i < 150; i++) {
+            cooldownText.textContent =
+                "You can change your nickname.";
 
-            const star =
-                document.createElement("div");
+        } else {
 
-            star.classList.add("star");
+            const days =
+                Math.ceil(
+                    (
+                        nextChange - now
+                    ) /
+                    (
+                        24 * 60 * 60 * 1000
+                    )
+                );
 
-            star.style.left =
-                Math.random() * 100 + "%";
+            cooldownText.textContent =
+                "You can change your nickname in " +
+                days +
+                " day(s).";
+        }
+    }
+);
 
-            star.style.top =
-                Math.random() * 100 + "%";
 
-            const size =
-                Math.random() * 3 + 1;
+changeNicknameButton.addEventListener(
+    "click",
+    async () => {
 
-            star.style.width =
-                size + "px";
+        const nickname =
+            changeNicknameInput.value.trim();
 
-            star.style.height =
-                size + "px";
+        if(!nickname) {
 
-            starsContainer.appendChild(star);
+            changeNicknameStatus.textContent =
+                "Enter a nickname.";
+
+            return;
         }
 
+        changeNicknameStatus.textContent =
+            "Saving...";
 
-        /* =========================
-           ELEMENTLER
-        ========================= */
-
-        const button =
-            document.querySelector(".click-button");
-
-        const counter =
-            document.querySelector(".counter");
-
-        const loginOverlay =
-            document.getElementById("loginOverlay");
-
-        const googleButton =
-            document.getElementById("googleButton");
-
-        const guestButton =
-            document.getElementById("guestButton");
-
-        const loginStatus =
-            document.getElementById("loginStatus");
-
-        const userInfo =
-            document.getElementById("userInfo");
-
-
-        let clicks = 0;
-
-        let currentUser = null;
-
-        let isGuest = false;
-
-
-        /* =========================
-           GOOGLE GİRİŞİ
-        ========================= */
-
-        googleButton.addEventListener(
-            "click",
-            async function () {
-
-                loginStatus.textContent =
-                    "Opening Google...";
-
-                const { error } =
-                    await supabaseClient.auth.signInWithOAuth({
-                        provider: "google",
-                        options: {
-                            redirectTo:
-                                window.location.origin
-                        }
-                    });
-
-                if (error) {
-
-                    console.error(error);
-
-                    loginStatus.textContent =
-                        "Google login failed.";
-                }
-            }
-        );
-
-
-        /* =========================
-           MİSAFİR GİRİŞİ
-        ========================= */
-
-        guestButton.addEventListener(
-            "click",
-            function () {
-
-                isGuest = true;
-
-                userInfo.textContent =
-                    "👻 Guest";
-
-                loginOverlay.classList.add(
-                    "hidden"
-                );
-            }
-        );
-
-
-        /* =========================
-           KULLANICIYI KONTROL ET
-        ========================= */
-
-        async function loadUser() {
-
-            const {
-                data: {
-                    user
-                }
-            } =
-                await supabaseClient.auth.getUser();
-
-
-            if (user) {
-
-                currentUser = user;
-
-                isGuest = false;
-
-                const name =
-                    user.user_metadata?.full_name ||
-                    user.user_metadata?.name ||
-                    user.email ||
-                    "User";
-
-                userInfo.textContent =
-                    "👤 " + name;
-
-                loginOverlay.classList.add(
-                    "hidden"
+        const { data, error } =
+            await supabaseClient
+                .rpc(
+                    "change_nickname",
+                    {
+                        new_nickname:
+                            nickname
+                    }
                 );
 
-            } else {
+        if(error) {
 
-                loginOverlay.classList.remove(
-                    "hidden"
-                );
-            }
+            changeNicknameStatus.textContent =
+                error.message;
+
+            return;
         }
 
+        currentNickname =
+            data;
 
-        /* =========================
-           AUTH DEĞİŞİKLİKLERİNİ DİNLE
-        ========================= */
+        userInfo.textContent =
+            "👤 " + currentNickname;
 
-        supabaseClient.auth.onAuthStateChange(
-            function (event, session) {
+        hide(changeNicknameOverlay);
+    }
+);
 
-                if (session?.user) {
 
-                    currentUser =
-                        session.user;
+/* =========================
+   CLOSE BUTTONS
+========================= */
 
-                    isGuest = false;
+closeNicknameButton.addEventListener(
+    "click",
+    () => {
 
-                    const name =
-                        session.user.user_metadata?.full_name ||
-                        session.user.user_metadata?.name ||
-                        session.user.email ||
-                        "User";
-
-                    userInfo.textContent =
-                        "👤 " + name;
-
-                    loginOverlay.classList.add(
-                        "hidden"
-                    );
-                }
-            }
+        hide(
+            changeNicknameOverlay
         );
+    }
+);
 
 
-        /* =========================
-           CLICK SAYACI
-        ========================= */
+closeLeaderboardButton.addEventListener(
+    "click",
+    () => {
 
-        button.addEventListener(
-            "click",
-            function () {
-
-                clicks++;
-
-                counter.textContent =
-                    clicks +
-                    (clicks === 1
-                        ? " CLICK"
-                        : " CLICKS");
-
-            }
+        hide(
+            leaderboardOverlay
         );
+    }
+);
 
 
-        /* =========================
-           BAŞLANGIÇ
-        ========================= */
+/* =========================
+   HTML ESCAPE
+========================= */
 
-        loadUser();
+function escapeHtml(text) {
 
-    </script>
+    const div =
+        document.createElement("div");
+
+    div.textContent =
+        text;
+
+    return div.innerHTML;
+}
+
+
+/* =========================
+   AUTH CHECK
+========================= */
+
+async function checkAuth() {
+
+    const { data } =
+        await supabaseClient.auth
+            .getUser();
+
+    if(data.user) {
+
+        currentUser =
+            data.user;
+
+        isGuest = false;
+
+        hide(loginOverlay);
+
+        await loadProfile();
+
+    } else {
+
+        show(loginOverlay);
+    }
+}
+
+
+/* =========================
+   AUTH EVENTS
+========================= */
+
+supabaseClient.auth.onAuthStateChange(
+    async (event, session) => {
+
+        if(session?.user) {
+
+            currentUser =
+                session.user;
+
+            isGuest = false;
+
+            hide(loginOverlay);
+
+            await loadProfile();
+        }
+    }
+);
+
+
+/* =========================
+   START
+========================= */
+
+checkAuth();
+
+</script>
 
 </body>
+
 </html>
