@@ -12,6 +12,12 @@
 
 <title>CLICK ME</title>
 
+<link
+    rel="icon"
+    type="image/png"
+    href="logo.png.png"
+>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
@@ -115,24 +121,6 @@ body {
     align-items: center;
 
     gap: 24px;
-}
-
-
-/* =========================
-   LOGO
-========================= */
-
-.site-logo {
-
-    width: 220px;
-
-    max-width: 70vw;
-
-    height: auto;
-
-    margin-bottom: 5px;
-
-    object-fit: contain;
 }
 
 
@@ -534,11 +522,6 @@ body {
 
         right: 10px;
     }
-
-    .site-logo {
-
-        width: 180px;
-    }
 }
 
 </style>
@@ -558,12 +541,6 @@ body {
 
 
 <div class="container">
-
-    <img
-        src="logo.png.png"
-        class="site-logo"
-        alt="CLICK ME logo"
-    >
 
     <div class="counter" id="counter">
         0 CLICKS
@@ -586,9 +563,7 @@ body {
 </div>
 
 
-<!-- =========================
-     LOGIN
-========================= -->
+<!-- LOGIN -->
 
 <div
     class="overlay"
@@ -627,9 +602,7 @@ body {
 </div>
 
 
-<!-- =========================
-     NICKNAME
-========================= -->
+<!-- NICKNAME -->
 
 <div
     class="overlay hidden"
@@ -668,9 +641,7 @@ body {
 </div>
 
 
-<!-- =========================
-     CHANGE NICKNAME
-========================= -->
+<!-- CHANGE NICKNAME -->
 
 <div
     class="overlay hidden"
@@ -716,9 +687,7 @@ body {
 </div>
 
 
-<!-- =========================
-     LEADERBOARD
-========================= -->
+<!-- LEADERBOARD -->
 
 <div
     class="overlay hidden"
@@ -736,8 +705,7 @@ body {
         <div
             class="leaderboard-list"
             id="leaderboardList"
-        >
-        </div>
+        ></div>
 
         <button
             class="secondary-button"
@@ -754,16 +722,13 @@ body {
 <script>
 
 
-/* =========================
-   SUPABASE
-========================= */
+/* SUPABASE */
 
 const SUPABASE_URL =
     "https://usvrsrodbivsjrxityzb.supabase.co";
 
 const SUPABASE_PUBLISHABLE_KEY =
     "sb_publishable_QUghnr59x4oH65LZqQW5zg_7qR7yMr4";
-
 
 const supabaseClient =
     window.supabase.createClient(
@@ -772,119 +737,73 @@ const supabaseClient =
     );
 
 
-/* =========================
-   ELEMENTS
-========================= */
+/* ELEMENTS */
 
 const loginOverlay =
-    document.getElementById(
-        "loginOverlay"
-    );
+    document.getElementById("loginOverlay");
 
 const nicknameOverlay =
-    document.getElementById(
-        "nicknameOverlay"
-    );
+    document.getElementById("nicknameOverlay");
 
 const changeNicknameOverlay =
-    document.getElementById(
-        "changeNicknameOverlay"
-    );
+    document.getElementById("changeNicknameOverlay");
 
 const leaderboardOverlay =
-    document.getElementById(
-        "leaderboardOverlay"
-    );
+    document.getElementById("leaderboardOverlay");
 
 const googleButton =
-    document.getElementById(
-        "googleButton"
-    );
+    document.getElementById("googleButton");
 
 const guestButton =
-    document.getElementById(
-        "guestButton"
-    );
+    document.getElementById("guestButton");
 
 const clickButton =
-    document.getElementById(
-        "clickButton"
-    );
+    document.getElementById("clickButton");
 
 const counter =
-    document.getElementById(
-        "counter"
-    );
+    document.getElementById("counter");
 
 const userInfo =
-    document.getElementById(
-        "userInfo"
-    );
+    document.getElementById("userInfo");
 
 const nicknameInput =
-    document.getElementById(
-        "nicknameInput"
-    );
+    document.getElementById("nicknameInput");
 
 const saveNicknameButton =
-    document.getElementById(
-        "saveNicknameButton"
-    );
+    document.getElementById("saveNicknameButton");
 
 const leaderboardButton =
-    document.getElementById(
-        "leaderboardButton"
-    );
+    document.getElementById("leaderboardButton");
 
 const leaderboardList =
-    document.getElementById(
-        "leaderboardList"
-    );
+    document.getElementById("leaderboardList");
 
 const changeNicknameInput =
-    document.getElementById(
-        "changeNicknameInput"
-    );
+    document.getElementById("changeNicknameInput");
 
 const changeNicknameButton =
-    document.getElementById(
-        "changeNicknameButton"
-    );
+    document.getElementById("changeNicknameButton");
 
 const closeNicknameButton =
-    document.getElementById(
-        "closeNicknameButton"
-    );
+    document.getElementById("closeNicknameButton");
 
 const closeLeaderboardButton =
-    document.getElementById(
-        "closeLeaderboardButton"
-    );
+    document.getElementById("closeLeaderboardButton");
 
 const loginStatus =
-    document.getElementById(
-        "loginStatus"
-    );
+    document.getElementById("loginStatus");
 
 const nicknameStatus =
-    document.getElementById(
-        "nicknameStatus"
-    );
+    document.getElementById("nicknameStatus");
 
 const changeNicknameStatus =
-    document.getElementById(
-        "changeNicknameStatus"
-    );
+    document.getElementById("changeNicknameStatus");
 
 const cooldownText =
-    document.getElementById(
-        "cooldownText"
-    );
+    document.getElementById("cooldownText");
 
 
-/* =========================
-   STATE
-========================= */
+/* STATE */
 
 let currentUser = null;
 
@@ -895,9 +814,7 @@ let clicks = 0;
 let currentNickname = null;
 
 
-/* =========================
-   STARS
-========================= */
+/* STARS */
 
 const stars =
     document.querySelector(".stars");
@@ -928,22 +845,16 @@ for(let i = 0; i < 150; i++) {
 }
 
 
-/* =========================
-   HELPERS
-========================= */
+/* HELPERS */
 
 function show(element) {
 
-    element.classList.remove(
-        "hidden"
-    );
+    element.classList.remove("hidden");
 }
 
 function hide(element) {
 
-    element.classList.add(
-        "hidden"
-    );
+    element.classList.add("hidden");
 }
 
 function updateCounter() {
@@ -956,9 +867,7 @@ function updateCounter() {
 }
 
 
-/* =========================
-   GOOGLE
-========================= */
+/* GOOGLE LOGIN */
 
 googleButton.addEventListener(
     "click",
@@ -993,9 +902,7 @@ googleButton.addEventListener(
 );
 
 
-/* =========================
-   GUEST
-========================= */
+/* GUEST */
 
 guestButton.addEventListener(
     "click",
@@ -1019,9 +926,7 @@ guestButton.addEventListener(
 );
 
 
-/* =========================
-   LOAD PROFILE
-========================= */
+/* LOAD PROFILE */
 
 async function loadProfile() {
 
@@ -1081,9 +986,7 @@ async function loadProfile() {
 }
 
 
-/* =========================
-   SAVE FIRST NICKNAME
-========================= */
+/* FIRST NICKNAME */
 
 saveNicknameButton.addEventListener(
     "click",
@@ -1135,9 +1038,7 @@ saveNicknameButton.addEventListener(
 );
 
 
-/* =========================
-   CLICK
-========================= */
+/* CLICK */
 
 clickButton.addEventListener(
     "click",
@@ -1179,9 +1080,7 @@ clickButton.addEventListener(
 );
 
 
-/* =========================
-   LEADERBOARD
-========================= */
+/* LEADERBOARD */
 
 leaderboardButton.addEventListener(
     "click",
@@ -1269,9 +1168,7 @@ leaderboardButton.addEventListener(
 );
 
 
-/* =========================
-   CHANGE NICKNAME
-========================= */
+/* CHANGE NICKNAME */
 
 userInfo.addEventListener(
     "click",
@@ -1403,17 +1300,14 @@ changeNicknameButton.addEventListener(
 );
 
 
-/* =========================
-   CLOSE BUTTONS
-========================= */
+/* CLOSE */
 
 closeNicknameButton.addEventListener(
     "click",
     () => {
 
-        hide(
-            changeNicknameOverlay
-        );
+        hide(changeNicknameOverlay);
+
     }
 );
 
@@ -1422,16 +1316,13 @@ closeLeaderboardButton.addEventListener(
     "click",
     () => {
 
-        hide(
-            leaderboardOverlay
-        );
+        hide(leaderboardOverlay);
+
     }
 );
 
 
-/* =========================
-   HTML ESCAPE
-========================= */
+/* HTML ESCAPE */
 
 function escapeHtml(text) {
 
@@ -1445,9 +1336,7 @@ function escapeHtml(text) {
 }
 
 
-/* =========================
-   AUTH CHECK
-========================= */
+/* AUTH CHECK */
 
 async function checkAuth() {
 
@@ -1473,9 +1362,7 @@ async function checkAuth() {
 }
 
 
-/* =========================
-   AUTH EVENTS
-========================= */
+/* AUTH EVENTS */
 
 supabaseClient.auth.onAuthStateChange(
     async (event, session) => {
@@ -1495,9 +1382,7 @@ supabaseClient.auth.onAuthStateChange(
 );
 
 
-/* =========================
-   START
-========================= */
+/* START */
 
 checkAuth();
 
