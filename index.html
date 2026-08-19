@@ -5,10 +5,7 @@
 
 <meta charset="UTF-8">
 
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>CLICK ME</title>
 
@@ -69,14 +66,47 @@ body {
 
     border-radius: 50%;
 
-    box-shadow:
-        0 0 6px rgba(255,255,255,.8);
-
     animation:
         starFall linear infinite;
 
     will-change: transform;
 }
+
+
+/* SMALL */
+
+.star.small {
+
+    opacity: .45;
+
+    box-shadow:
+        0 0 4px rgba(255,255,255,.5);
+}
+
+
+/* NORMAL */
+
+.star.normal {
+
+    opacity: .8;
+
+    box-shadow:
+        0 0 7px rgba(255,255,255,.85);
+}
+
+
+/* BRIGHT */
+
+.star.bright {
+
+    opacity: 1;
+
+    box-shadow:
+        0 0 12px rgba(255,255,255,1);
+}
+
+
+/* STAR MOVEMENT */
 
 @keyframes starFall {
 
@@ -119,7 +149,8 @@ body {
         rgba(255,255,255,.07);
 
     border:
-        1px solid rgba(255,255,255,.12);
+        1px solid
+        rgba(255,255,255,.12);
 
     font-size: 14px;
 
@@ -905,7 +936,7 @@ let currentNickname = null;
 const stars =
     document.querySelector(".stars");
 
-for(let i = 0; i < 150; i++) {
+for(let i = 0; i < 180; i++) {
 
     const star =
         document.createElement("div");
@@ -913,14 +944,76 @@ for(let i = 0; i < 150; i++) {
     star.className =
         "star";
 
+
+    /* RANDOM POSITION */
+
     star.style.left =
         Math.random() * 100 + "%";
+
+
+    /* RANDOM START */
 
     star.style.top =
         Math.random() * 100 + "%";
 
-    const size =
-        Math.random() * 3 + 1;
+
+    /* RANDOM TYPE */
+
+    const type =
+        Math.random();
+
+
+    if(type < 0.55) {
+
+        star.classList.add(
+            "small"
+        );
+
+    }
+
+    else if(type < 0.90) {
+
+        star.classList.add(
+            "normal"
+        );
+
+    }
+
+    else {
+
+        star.classList.add(
+            "bright"
+        );
+
+    }
+
+
+    /* RANDOM SIZE */
+
+    let size;
+
+
+    if(type < 0.55) {
+
+        size =
+            Math.random() * 1.5 + 0.5;
+
+    }
+
+    else if(type < 0.90) {
+
+        size =
+            Math.random() * 2 + 1;
+
+    }
+
+    else {
+
+        size =
+            Math.random() * 3 + 2;
+
+    }
+
 
     star.style.width =
         size + "px";
@@ -928,13 +1021,26 @@ for(let i = 0; i < 150; i++) {
     star.style.height =
         size + "px";
 
+
+    /* SLOW RANDOM SPEED */
+
     star.style.animationDuration =
-        (Math.random() * 8 + 4) + "s";
+        (
+            Math.random() * 10 + 8
+        ) + "s";
+
+
+    /* RANDOM START TIME */
 
     star.style.animationDelay =
-        (Math.random() * -12) + "s";
+        (
+            Math.random() * -18
+        ) + "s";
 
-    stars.appendChild(star);
+
+    stars.appendChild(
+        star
+    );
 }
 
 
@@ -949,12 +1055,14 @@ function show(element) {
     );
 }
 
+
 function hide(element) {
 
     element.classList.add(
         "hidden"
     );
 }
+
 
 function updateCounter() {
 
@@ -965,6 +1073,7 @@ function updateCounter() {
                 ? " CLICK"
                 : " CLICKS"
         );
+
 }
 
 
@@ -978,6 +1087,7 @@ googleButton.addEventListener(
 
         loginStatus.textContent =
             "Opening Google...";
+
 
         const { error } =
             await supabaseClient.auth
@@ -994,13 +1104,18 @@ googleButton.addEventListener(
 
                 });
 
+
         if(error) {
 
-            console.error(error);
+            console.error(
+                error
+            );
 
             loginStatus.textContent =
                 error.message;
+
         }
+
     }
 );
 
@@ -1022,11 +1137,14 @@ guestButton.addEventListener(
         userInfo.textContent =
             "👻 Guest";
 
-        hide(loginOverlay);
+        hide(
+            loginOverlay
+        );
 
         clicks = 0;
 
         updateCounter();
+
     }
 );
 
@@ -1038,8 +1156,11 @@ guestButton.addEventListener(
 async function loadProfile() {
 
     if(!currentUser) {
+
         return;
+
     }
+
 
     const { data, error } =
         await supabaseClient
@@ -1053,12 +1174,17 @@ async function loadProfile() {
             )
             .maybeSingle();
 
+
     if(error) {
 
-        console.error(error);
+        console.error(
+            error
+        );
 
         return;
+
     }
+
 
     if(!data) {
 
@@ -1067,15 +1193,20 @@ async function loadProfile() {
         );
 
         return;
+
     }
+
 
     currentNickname =
         data.username;
 
+
     clicks =
         data.clicks || 0;
 
+
     updateCounter();
+
 
     if(currentNickname) {
 
@@ -1083,14 +1214,22 @@ async function loadProfile() {
             "👤 " +
             currentNickname;
 
-        hide(nicknameOverlay);
+        hide(
+            nicknameOverlay
+        );
 
-    } else {
+    }
 
-        show(nicknameOverlay);
+    else {
+
+        show(
+            nicknameOverlay
+        );
 
         nicknameInput.focus();
+
     }
+
 }
 
 
@@ -1105,16 +1244,20 @@ saveNicknameButton.addEventListener(
         const nickname =
             nicknameInput.value.trim();
 
+
         if(!nickname) {
 
             nicknameStatus.textContent =
                 "Enter a nickname.";
 
             return;
+
         }
+
 
         nicknameStatus.textContent =
             "Saving...";
+
 
         const { data, error } =
             await supabaseClient
@@ -1126,25 +1269,34 @@ saveNicknameButton.addEventListener(
                     }
                 );
 
+
         if(error) {
 
             nicknameStatus.textContent =
                 error.message;
 
             return;
+
         }
+
 
         currentNickname =
             data;
+
 
         userInfo.textContent =
             "👤 " +
             currentNickname;
 
-        hide(nicknameOverlay);
+
+        hide(
+            nicknameOverlay
+        );
+
 
         nicknameStatus.textContent =
             "";
+
     }
 );
 
@@ -1164,14 +1316,20 @@ clickButton.addEventListener(
             updateCounter();
 
             return;
+
         }
+
 
         if(!currentUser) {
 
-            show(loginOverlay);
+            show(
+                loginOverlay
+            );
 
             return;
+
         }
+
 
         const { data, error } =
             await supabaseClient
@@ -1179,17 +1337,24 @@ clickButton.addEventListener(
                     "increment_clicks"
                 );
 
+
         if(error) {
 
-            console.error(error);
+            console.error(
+                error
+            );
 
             return;
+
         }
+
 
         clicks =
             data;
 
+
         updateCounter();
+
     }
 );
 
@@ -1206,8 +1371,10 @@ leaderboardButton.addEventListener(
             leaderboardOverlay
         );
 
+
         leaderboardList.innerHTML =
             "<p>Loading...</p>";
+
 
         const { data, error } =
             await supabaseClient
@@ -1223,20 +1390,26 @@ leaderboardButton.addEventListener(
                 .order(
                     "clicks",
                     {
-                        ascending: false
+                        ascending:
+                            false
                     }
                 )
                 .limit(100);
 
+
         if(error) {
 
-            console.error(error);
+            console.error(
+                error
+            );
 
             leaderboardList.innerHTML =
                 "<p>Could not load leaderboard.</p>";
 
             return;
+
         }
+
 
         if(!data.length) {
 
@@ -1244,23 +1417,32 @@ leaderboardButton.addEventListener(
                 "<p>No players yet.</p>";
 
             return;
+
         }
+
 
         leaderboardList.innerHTML =
             "";
 
+
         data.forEach(
-            (player, index) => {
+            (
+                player,
+                index
+            ) => {
 
                 const row =
                     document.createElement(
                         "div"
                     );
 
+
                 row.className =
                     "leader-row";
 
+
                 row.innerHTML = `
+
                     <div class="rank">
                         ${index + 1}
                     </div>
@@ -1276,13 +1458,17 @@ leaderboardButton.addEventListener(
                             player.clicks || 0
                         ).toLocaleString()}
                     </div>
+
                 `;
+
 
                 leaderboardList.appendChild(
                     row
                 );
+
             }
         );
+
     }
 );
 
@@ -1301,17 +1487,22 @@ userInfo.addEventListener(
         ) {
 
             return;
+
         }
+
 
         show(
             changeNicknameOverlay
         );
 
+
         changeNicknameInput.value =
             "";
 
+
         changeNicknameStatus.textContent =
             "";
+
 
         const { data, error } =
             await supabaseClient
@@ -1325,13 +1516,16 @@ userInfo.addEventListener(
                 )
                 .maybeSingle();
 
+
         if(error || !data) {
 
             cooldownText.textContent =
                 "Nickname settings unavailable.";
 
             return;
+
         }
+
 
         if(
             !data.nickname_changed_at
@@ -1341,12 +1535,15 @@ userInfo.addEventListener(
                 "You can change your nickname.";
 
             return;
+
         }
+
 
         const lastChange =
             new Date(
                 data.nickname_changed_at
             );
+
 
         const nextChange =
             new Date(
@@ -1358,20 +1555,27 @@ userInfo.addEventListener(
                 1000
             );
 
+
         const now =
             new Date();
 
-        if(now >= nextChange) {
+
+        if(
+            now >= nextChange
+        ) {
 
             cooldownText.textContent =
                 "You can change your nickname.";
 
-        } else {
+        }
+
+        else {
 
             const days =
                 Math.ceil(
                     (
-                        nextChange - now
+                        nextChange -
+                        now
                     ) /
                     (
                         24 *
@@ -1381,14 +1585,21 @@ userInfo.addEventListener(
                     )
                 );
 
+
             cooldownText.textContent =
                 "You can change your nickname in " +
                 days +
                 " day(s).";
+
         }
+
     }
 );
 
+
+/* =========================
+   CHANGE NICKNAME BUTTON
+========================= */
 
 changeNicknameButton.addEventListener(
     "click",
@@ -1397,16 +1608,20 @@ changeNicknameButton.addEventListener(
         const nickname =
             changeNicknameInput.value.trim();
 
+
         if(!nickname) {
 
             changeNicknameStatus.textContent =
                 "Enter a nickname.";
 
             return;
+
         }
+
 
         changeNicknameStatus.textContent =
             "Saving...";
+
 
         const { data, error } =
             await supabaseClient
@@ -1418,24 +1633,30 @@ changeNicknameButton.addEventListener(
                     }
                 );
 
+
         if(error) {
 
             changeNicknameStatus.textContent =
                 error.message;
 
             return;
+
         }
+
 
         currentNickname =
             data;
+
 
         userInfo.textContent =
             "👤 " +
             currentNickname;
 
+
         hide(
             changeNicknameOverlay
         );
+
     }
 );
 
@@ -1483,6 +1704,7 @@ function escapeHtml(text) {
         text;
 
     return div.innerHTML;
+
 }
 
 
@@ -1496,6 +1718,7 @@ async function checkAuth() {
         await supabaseClient.auth
             .getUser();
 
+
     if(data.user) {
 
         currentUser =
@@ -1504,14 +1727,22 @@ async function checkAuth() {
         isGuest =
             false;
 
-        hide(loginOverlay);
+        hide(
+            loginOverlay
+        );
 
         await loadProfile();
 
-    } else {
-
-        show(loginOverlay);
     }
+
+    else {
+
+        show(
+            loginOverlay
+        );
+
+    }
+
 }
 
 
@@ -1533,10 +1764,14 @@ supabaseClient.auth.onAuthStateChange(
             isGuest =
                 false;
 
-            hide(loginOverlay);
+            hide(
+                loginOverlay
+            );
 
             await loadProfile();
+
         }
+
     }
 );
 
