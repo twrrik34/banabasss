@@ -10,7 +10,7 @@
     content="width=device-width, initial-scale=1.0"
 >
 
-<title>CLICK ME</title>
+<title>BANABASSS</title>
 
 <link
     rel="icon"
@@ -37,22 +37,20 @@ body {
     background:
         radial-gradient(
             circle at 50% 45%,
-            #10152c 0%,
-            #050816 38%,
-            #02030a 75%,
-            #000106 100%
+            #11182f 0%,
+            #080d20 30%,
+            #030612 65%,
+            #010208 100%
         );
 
     color: white;
 
-    font-family:
-        Arial,
-        sans-serif;
+    font-family: Arial, sans-serif;
 }
 
 
 /* =========================
-   SPACE BACKGROUND
+   SPACE
 ========================= */
 
 .stars {
@@ -61,37 +59,23 @@ body {
 
     inset: 0;
 
+    overflow: hidden;
+
     pointer-events: none;
 
     z-index: 0;
-
-    overflow: hidden;
 }
 
-
-/* =========================
-   NORMAL STAR
-========================= */
 
 .star {
 
     position: absolute;
 
-    top: -20px;
-
-    width: 2px;
-
-    height: 2px;
-
-    border-radius: 50%;
+    top: -30px;
 
     background: white;
 
-    opacity: .8;
-
-    box-shadow:
-        0 0 6px
-        rgba(255,255,255,.9);
+    border-radius: 50%;
 
     animation:
         starFall
@@ -103,11 +87,9 @@ body {
 }
 
 
-/* =========================
-   SMALL STAR
-========================= */
+/* tiny dots */
 
-.star.small {
+.star.tiny {
 
     width: 1px;
 
@@ -121,9 +103,7 @@ body {
 }
 
 
-/* =========================
-   NORMAL STAR
-========================= */
+/* normal stars */
 
 .star.normal {
 
@@ -131,17 +111,15 @@ body {
 
     height: 2px;
 
-    opacity: .8;
+    opacity: .75;
 
     box-shadow:
         0 0 7px
-        rgba(255,255,255,.9);
+        rgba(255,255,255,.8);
 }
 
 
-/* =========================
-   BRIGHT STAR
-========================= */
+/* bright stars */
 
 .star.bright {
 
@@ -152,14 +130,12 @@ body {
     opacity: 1;
 
     box-shadow:
-        0 0 14px
+        0 0 12px
         rgba(255,255,255,1);
 }
 
 
-/* =========================
-   CROSS STAR
-========================= */
+/* four-point stars */
 
 .star.cross {
 
@@ -169,20 +145,25 @@ body {
 
     border-radius: 50%;
 
-    background: white;
-
     box-shadow:
+
         0 0 5px white,
-        0 -7px 5px rgba(255,255,255,.6),
-        0 7px 5px rgba(255,255,255,.6),
-        -7px 0 5px rgba(255,255,255,.6),
-        7px 0 5px rgba(255,255,255,.6);
+
+        0 -8px 7px
+        rgba(255,255,255,.7),
+
+        0 8px 7px
+        rgba(255,255,255,.7),
+
+        -8px 0 7px
+        rgba(255,255,255,.7),
+
+        8px 0 7px
+        rgba(255,255,255,.7);
 }
 
 
-/* =========================
-   DIAMOND STAR
-========================= */
+/* diamond stars */
 
 .star.diamond {
 
@@ -194,17 +175,13 @@ body {
 
     transform: rotate(45deg);
 
-    background: white;
-
     box-shadow:
-        0 0 10px
+        0 0 12px
         rgba(255,255,255,1);
 }
 
 
-/* =========================
-   GLOW STAR
-========================= */
+/* glowing stars */
 
 .star.glow {
 
@@ -212,33 +189,40 @@ body {
 
     height: 4px;
 
-    background: white;
-
     box-shadow:
-        0 0 5px white,
+
+        0 0 6px white,
+
         0 0 14px white,
-        0 0 24px
-        rgba(255,255,255,.7);
+
+        0 0 26px
+        rgba(255,255,255,.8);
 }
 
 
-/* =========================
-   STAR FALL
-========================= */
+/* star movement */
 
 @keyframes starFall {
 
     from {
 
         transform:
-            translateY(-12vh);
+            translate3d(
+                0,
+                -15vh,
+                0
+            );
 
     }
 
     to {
 
         transform:
-            translateY(112vh);
+            translate3d(
+                0,
+                115vh,
+                0
+            );
 
     }
 
@@ -300,10 +284,6 @@ body {
 }
 
 
-/* =========================
-   COUNTER
-========================= */
-
 .counter {
 
     color: white;
@@ -363,6 +343,7 @@ body {
         box-shadow .08s ease;
 }
 
+
 .click-button:active {
 
     transform:
@@ -373,6 +354,7 @@ body {
         0 8px 20px
         rgba(0,0,0,.5);
 }
+
 
 .click-button::before {
 
@@ -455,6 +437,7 @@ body {
         opacity .25s ease;
 }
 
+
 .overlay.hidden {
 
     opacity: 0;
@@ -490,12 +473,14 @@ body {
     text-align: center;
 }
 
+
 .modal h1 {
 
     font-size: 30px;
 
     margin-bottom: 10px;
 }
+
 
 .modal p {
 
@@ -562,6 +547,7 @@ body {
     cursor: pointer;
 }
 
+
 .primary-button {
 
     border: none;
@@ -571,6 +557,7 @@ body {
 
     color: white;
 }
+
 
 .secondary-button {
 
@@ -584,6 +571,7 @@ body {
     color: white;
 }
 
+
 .google-button {
 
     border: none;
@@ -592,6 +580,7 @@ body {
 
     color: #222;
 }
+
 
 .guest-button {
 
@@ -618,6 +607,7 @@ body {
     margin-top: 20px;
 }
 
+
 .leader-row {
 
     display: flex;
@@ -636,6 +626,7 @@ body {
         rgba(255,255,255,.05);
 }
 
+
 .rank {
 
     width: 40px;
@@ -643,12 +634,14 @@ body {
     font-weight: 900;
 }
 
+
 .nick {
 
     flex: 1;
 
     text-align: left;
 }
+
 
 .score {
 
@@ -703,7 +696,7 @@ body {
 
 
 /* =========================
-   SCRIPT
+   SUPABASE
 ========================= */
 
 </style>
@@ -717,12 +710,16 @@ body {
 <div class="stars"></div>
 
 
-<div class="user-info" id="userInfo">
+<div
+    class="user-info"
+    id="userInfo"
+>
     Guest
 </div>
 
 
 <div class="container">
+
 
     <div
         class="counter"
@@ -747,6 +744,7 @@ body {
         🏆 GLOBAL LEADERBOARD
     </button>
 
+
 </div>
 
 
@@ -759,7 +757,7 @@ body {
 
     <div class="modal">
 
-        <h1>CLICK ME</h1>
+        <h1>BANABASSS</h1>
 
         <p>
             Choose how you want to enter
@@ -1090,7 +1088,7 @@ let currentNickname = null;
 
 
 /* =========================
-   SPACE STARS
+   CREATE 350 STARS
 ========================= */
 
 const stars =
@@ -1099,9 +1097,9 @@ const stars =
     );
 
 
-for(
+for (
     let i = 0;
-    i < 180;
+    i < 350;
     i++
 ) {
 
@@ -1116,44 +1114,56 @@ for(
     );
 
 
-    /* RANDOM POSITION */
-
     star.style.left =
         Math.random() * 100 +
         "%";
 
-
-    /* RANDOM HEIGHT */
 
     star.style.top =
         Math.random() * 100 +
         "%";
 
 
-    /*
-        STAR TYPES
-
-        0 - 55%  small
-        55 - 82% normal
-        82 - 90% bright
-        90 - 95% cross
-        95 - 98% diamond
-        98 - 100% glow
-    */
-
-    const type =
+    const randomType =
         Math.random();
 
 
-    if(type < .55) {
+    /*
+        STAR TYPES
+
+        0.00 - 0.55
+        tiny
+
+        0.55 - 0.82
+        normal
+
+        0.82 - 0.90
+        bright
+
+        0.90 - 0.95
+        cross
+
+        0.95 - 0.98
+        diamond
+
+        0.98 - 1.00
+        glow
+    */
+
+
+    if (
+        randomType < .55
+    ) {
 
         star.classList.add(
-            "small"
+            "tiny"
         );
 
     }
 
-    else if(type < .82) {
+    else if (
+        randomType < .82
+    ) {
 
         star.classList.add(
             "normal"
@@ -1161,7 +1171,9 @@ for(
 
     }
 
-    else if(type < .90) {
+    else if (
+        randomType < .90
+    ) {
 
         star.classList.add(
             "bright"
@@ -1169,7 +1181,9 @@ for(
 
     }
 
-    else if(type < .95) {
+    else if (
+        randomType < .95
+    ) {
 
         star.classList.add(
             "cross"
@@ -1177,7 +1191,9 @@ for(
 
     }
 
-    else if(type < .98) {
+    else if (
+        randomType < .98
+    ) {
 
         star.classList.add(
             "diamond"
@@ -1195,15 +1211,16 @@ for(
 
 
     /*
-        RANDOM SPEED
+        DIFFERENT SPEEDS
 
-        10 - 20 seconds
+        Most stars are slow.
+        A few are slightly faster.
     */
 
     star.style.animationDuration =
         (
-            Math.random() * 10 +
-            10
+            13 +
+            Math.random() * 12
         ) +
         "s";
 
@@ -1211,13 +1228,13 @@ for(
     /*
         RANDOM START
 
-        Makes the sky feel
-        already alive.
+        Stars don't start
+        together.
     */
 
     star.style.animationDelay =
         (
-            Math.random() * -20
+            Math.random() * -25
         ) +
         "s";
 
@@ -1269,7 +1286,7 @@ function updateCounter() {
 
 
 /* =========================
-   GOOGLE LOGIN
+   GOOGLE
 ========================= */
 
 googleButton.addEventListener(
@@ -1321,30 +1338,20 @@ guestButton.addEventListener(
     "click",
     () => {
 
-        isGuest =
-            true;
+        isGuest = true;
 
+        currentUser = null;
 
-        currentUser =
-            null;
-
-
-        currentNickname =
-            null;
-
+        currentNickname = null;
 
         userInfo.textContent =
             "👻 Guest";
-
 
         hide(
             loginOverlay
         );
 
-
-        clicks =
-            0;
-
+        clicks = 0;
 
         updateCounter();
 
@@ -1439,7 +1446,7 @@ async function loadProfile() {
 
 
 /* =========================
-   SAVE FIRST NICKNAME
+   FIRST NICKNAME
 ========================= */
 
 saveNicknameButton.addEventListener(
@@ -1614,7 +1621,6 @@ leaderboardButton.addEventListener(
             leaderboardList.innerHTML =
                 "<p>Could not load leaderboard.</p>";
 
-
             return;
 
         }
@@ -1624,7 +1630,6 @@ leaderboardButton.addEventListener(
 
             leaderboardList.innerHTML =
                 "<p>No players yet.</p>";
-
 
             return;
 
@@ -1875,7 +1880,7 @@ changeNicknameButton.addEventListener(
 
 
 /* =========================
-   CLOSE BUTTONS
+   CLOSE
 ========================= */
 
 closeNicknameButton.addEventListener(
