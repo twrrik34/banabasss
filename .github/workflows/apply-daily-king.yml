@@ -1,0 +1,156 @@
+name: Apply Daily Most Clicker
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    if: github.event.head_commit.message != 'Add Daily Most Clicker UI'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Patch index.html
+        shell: python
+        run: |
+          from pathlib import Path
+
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+
+          if 'id="dailyKing"' in s:
+              print('Daily king already installed.')
+              raise SystemExit(0)
+
+          css = r'''
+
+/* =========================
+   DAILY MOST CLICKER
+========================= */
+
+.daily-king {
+    position: fixed;
+    top: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 6;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 15px 9px 12px;
+    border: 1px solid rgba(255,255,255,.14);
+    border-radius: 999px;
+    background: rgba(255,255,255,.07);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 8px 28px rgba(0,0,0,.25);
+    white-space: nowrap;
+}
+
+.daily-king-crown {
+    font-size: 23px;
+    transform: rotate(-16deg) translateY(-3px);
+    filter: drop-shadow(0 0 7px rgba(255,215,80,.45));
+}
+
+.daily-king-name {
+    font-size: 14px;
+    font-weight: 900;
+    letter-spacing: .4px;
+}
+
+.daily-king-label {
+    color: #aaa;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+@media(max-width:600px) {
+    .daily-king {
+        top: 10px;
+        max-width: calc(100vw - 120px);
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .daily-king-name {
+        max-width: 105px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+'''
+
+          html = r'''
+
+<div class="daily-king" id="dailyKing" aria-live="polite">
+    <span class="daily-king-crown">👑</span>
+    <span class="daily-king-name" id="dailyKingName">—</span>
+    <span class="daily-king-label">MOST CLICKER</span>
+</div>
+'''
+
+          js = r'''
+
+/* =========================
+   DAILY MOST CLICKER
+========================= */
+
+const dailyKing = document.getElementById('dailyKing');
+const dailyKingName = document.getElementById('dailyKingName');
+
+async function loadDailyKing() {
+    const today = new Date().toISOString().slice(0, 10);
+
+    const { data, error } = await supabaseClient
+        .from('leadboard')
+        .select('username, daily_clicks, daily_date')
+        .eq('daily_date', today)
+        .not('username', 'is', null)
+        .order('daily_clicks', { ascending: false })
+        .limit(1);
+
+    if (error) {
+        console.error('Daily king:', error);
+        return;
+    }
+
+    if (data && data.length && Number(data[0].daily_clicks || 0) > 0) {
+        dailyKingName.textContent = data[0].username;
+        dailyKing.style.display = 'flex';
+    } else {
+        dailyKingName.textContent = 'BE THE FIRST';
+        dailyKing.style.display = 'flex';
+    }
+}
+
+'''
+
+          s = s.replace('/* =========================\n   MAIN\n========================= */', css + '\n/* =========================\n   MAIN\n========================= */', 1)
+          s = s.replace('<div class="container">', html + '\n<div class="container">', 1)
+          s = s.replace('/* =========================\n   GOOGLE\n========================= */', js + '/* =========================\n   GOOGLE\n========================= */', 1)
+
+          # Refresh the crown after every successful click and on page load.
+          marker = '        updateCounter();\n\n    }\n);'
+          replacement = '        updateCounter();\n        loadDailyKing();\n\n    }\n);'
+          if marker in s:
+              s = s.replace(marker, replacement, 1)
+
+          s = s.replace('checkAuth();\n\n</script>', 'checkAuth();\nloadDailyKing();\nsetInterval(loadDailyKing, 15000);\n\n</script>', 1)
+
+          p.write_text(s, encoding='utf-8')
+          print('Daily king UI installed.')
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git diff --cached --quiet && exit 0
+          git commit -m "Add Daily Most Clicker UI"
+          git push
