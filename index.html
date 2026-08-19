@@ -5,7 +5,10 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
 <title>CLICK ME</title>
 
@@ -31,16 +34,25 @@ body {
 
     overflow-x: hidden;
 
-    background: #02030a;
+    background:
+        radial-gradient(
+            circle at 50% 45%,
+            #10152c 0%,
+            #050816 38%,
+            #02030a 75%,
+            #000106 100%
+        );
 
     color: white;
 
-    font-family: Arial, sans-serif;
+    font-family:
+        Arial,
+        sans-serif;
 }
 
 
 /* =========================
-   STARS
+   SPACE BACKGROUND
 ========================= */
 
 .stars {
@@ -56,71 +68,177 @@ body {
     overflow: hidden;
 }
 
+
+/* =========================
+   NORMAL STAR
+========================= */
+
 .star {
 
     position: absolute;
 
-    top: -10px;
+    top: -20px;
 
-    background: white;
+    width: 2px;
+
+    height: 2px;
 
     border-radius: 50%;
 
-    animation:
-        starFall linear infinite;
-
-    will-change: transform;
-}
-
-
-/* SMALL */
-
-.star.small {
-
-    opacity: .45;
-
-    box-shadow:
-        0 0 4px rgba(255,255,255,.5);
-}
-
-
-/* NORMAL */
-
-.star.normal {
+    background: white;
 
     opacity: .8;
 
     box-shadow:
-        0 0 7px rgba(255,255,255,.85);
+        0 0 6px
+        rgba(255,255,255,.9);
+
+    animation:
+        starFall
+        linear
+        infinite;
+
+    will-change:
+        transform;
 }
 
 
-/* BRIGHT */
+/* =========================
+   SMALL STAR
+========================= */
+
+.star.small {
+
+    width: 1px;
+
+    height: 1px;
+
+    opacity: .45;
+
+    box-shadow:
+        0 0 3px
+        rgba(255,255,255,.5);
+}
+
+
+/* =========================
+   NORMAL STAR
+========================= */
+
+.star.normal {
+
+    width: 2px;
+
+    height: 2px;
+
+    opacity: .8;
+
+    box-shadow:
+        0 0 7px
+        rgba(255,255,255,.9);
+}
+
+
+/* =========================
+   BRIGHT STAR
+========================= */
 
 .star.bright {
+
+    width: 3px;
+
+    height: 3px;
 
     opacity: 1;
 
     box-shadow:
-        0 0 12px rgba(255,255,255,1);
+        0 0 14px
+        rgba(255,255,255,1);
 }
 
 
-/* STAR MOVEMENT */
+/* =========================
+   CROSS STAR
+========================= */
+
+.star.cross {
+
+    width: 3px;
+
+    height: 3px;
+
+    border-radius: 50%;
+
+    background: white;
+
+    box-shadow:
+        0 0 5px white,
+        0 -7px 5px rgba(255,255,255,.6),
+        0 7px 5px rgba(255,255,255,.6),
+        -7px 0 5px rgba(255,255,255,.6),
+        7px 0 5px rgba(255,255,255,.6);
+}
+
+
+/* =========================
+   DIAMOND STAR
+========================= */
+
+.star.diamond {
+
+    width: 5px;
+
+    height: 5px;
+
+    border-radius: 0;
+
+    transform: rotate(45deg);
+
+    background: white;
+
+    box-shadow:
+        0 0 10px
+        rgba(255,255,255,1);
+}
+
+
+/* =========================
+   GLOW STAR
+========================= */
+
+.star.glow {
+
+    width: 4px;
+
+    height: 4px;
+
+    background: white;
+
+    box-shadow:
+        0 0 5px white,
+        0 0 14px white,
+        0 0 24px
+        rgba(255,255,255,.7);
+}
+
+
+/* =========================
+   STAR FALL
+========================= */
 
 @keyframes starFall {
 
     from {
 
         transform:
-            translateY(-10vh);
+            translateY(-12vh);
 
     }
 
     to {
 
         transform:
-            translateY(110vh);
+            translateY(112vh);
 
     }
 
@@ -580,7 +698,13 @@ body {
 
         right: 10px;
     }
+
 }
+
+
+/* =========================
+   SCRIPT
+========================= */
 
 </style>
 
@@ -600,9 +724,13 @@ body {
 
 <div class="container">
 
-    <div class="counter" id="counter">
+    <div
+        class="counter"
+        id="counter"
+    >
         0 CLICKS
     </div>
+
 
     <button
         class="click-button"
@@ -610,6 +738,7 @@ body {
     >
         CLICK ME
     </button>
+
 
     <button
         class="leaderboard-button"
@@ -621,9 +750,7 @@ body {
 </div>
 
 
-<!-- =========================
-     LOGIN
-========================= -->
+<!-- LOGIN -->
 
 <div
     class="overlay"
@@ -638,6 +765,7 @@ body {
             Choose how you want to enter
         </p>
 
+
         <button
             class="google-button"
             id="googleButton"
@@ -645,12 +773,14 @@ body {
             🔵 Continue with Google
         </button>
 
+
         <button
             class="guest-button"
             id="guestButton"
         >
             👻 Continue as Guest
         </button>
+
 
         <div
             class="status"
@@ -662,9 +792,7 @@ body {
 </div>
 
 
-<!-- =========================
-     NICKNAME
-========================= -->
+<!-- NICKNAME -->
 
 <div
     class="overlay hidden"
@@ -673,11 +801,14 @@ body {
 
     <div class="modal">
 
-        <h1>Choose your nickname</h1>
+        <h1>
+            Choose your nickname
+        </h1>
 
         <p>
             This is the name that will appear on the leaderboard.
         </p>
+
 
         <input
             class="nickname-input"
@@ -686,12 +817,14 @@ body {
             placeholder="Your nickname"
         >
 
+
         <button
             class="primary-button"
             id="saveNicknameButton"
         >
             Continue
         </button>
+
 
         <div
             class="status"
@@ -703,9 +836,7 @@ body {
 </div>
 
 
-<!-- =========================
-     CHANGE NICKNAME
-========================= -->
+<!-- CHANGE NICKNAME -->
 
 <div
     class="overlay hidden"
@@ -714,11 +845,14 @@ body {
 
     <div class="modal">
 
-        <h1>Change nickname</h1>
+        <h1>
+            Change nickname
+        </h1>
 
         <p id="cooldownText">
             You can change your nickname here.
         </p>
+
 
         <input
             class="nickname-input"
@@ -727,6 +861,7 @@ body {
             placeholder="New nickname"
         >
 
+
         <button
             class="primary-button"
             id="changeNicknameButton"
@@ -734,12 +869,14 @@ body {
             Change nickname
         </button>
 
+
         <button
             class="secondary-button"
             id="closeNicknameButton"
         >
             Cancel
         </button>
+
 
         <div
             class="status"
@@ -751,9 +888,7 @@ body {
 </div>
 
 
-<!-- =========================
-     LEADERBOARD
-========================= -->
+<!-- LEADERBOARD -->
 
 <div
     class="overlay hidden"
@@ -762,16 +897,20 @@ body {
 
     <div class="modal">
 
-        <h1>🏆 GLOBAL</h1>
+        <h1>
+            🏆 GLOBAL
+        </h1>
 
         <p>
             Top clickers
         </p>
 
+
         <div
             class="leaderboard-list"
             id="leaderboardList"
         ></div>
+
 
         <button
             class="secondary-button"
@@ -795,6 +934,7 @@ body {
 const SUPABASE_URL =
     "https://usvrsrodbivsjrxityzb.supabase.co";
 
+
 const SUPABASE_PUBLISHABLE_KEY =
     "sb_publishable_QUghnr59x4oH65LZqQW5zg_7qR7yMr4";
 
@@ -815,100 +955,120 @@ const loginOverlay =
         "loginOverlay"
     );
 
+
 const nicknameOverlay =
     document.getElementById(
         "nicknameOverlay"
     );
+
 
 const changeNicknameOverlay =
     document.getElementById(
         "changeNicknameOverlay"
     );
 
+
 const leaderboardOverlay =
     document.getElementById(
         "leaderboardOverlay"
     );
+
 
 const googleButton =
     document.getElementById(
         "googleButton"
     );
 
+
 const guestButton =
     document.getElementById(
         "guestButton"
     );
+
 
 const clickButton =
     document.getElementById(
         "clickButton"
     );
 
+
 const counter =
     document.getElementById(
         "counter"
     );
+
 
 const userInfo =
     document.getElementById(
         "userInfo"
     );
 
+
 const nicknameInput =
     document.getElementById(
         "nicknameInput"
     );
+
 
 const saveNicknameButton =
     document.getElementById(
         "saveNicknameButton"
     );
 
+
 const leaderboardButton =
     document.getElementById(
         "leaderboardButton"
     );
+
 
 const leaderboardList =
     document.getElementById(
         "leaderboardList"
     );
 
+
 const changeNicknameInput =
     document.getElementById(
         "changeNicknameInput"
     );
+
 
 const changeNicknameButton =
     document.getElementById(
         "changeNicknameButton"
     );
 
+
 const closeNicknameButton =
     document.getElementById(
         "closeNicknameButton"
     );
+
 
 const closeLeaderboardButton =
     document.getElementById(
         "closeLeaderboardButton"
     );
 
+
 const loginStatus =
     document.getElementById(
         "loginStatus"
     );
+
 
 const nicknameStatus =
     document.getElementById(
         "nicknameStatus"
     );
 
+
 const changeNicknameStatus =
     document.getElementById(
         "changeNicknameStatus"
     );
+
 
 const cooldownText =
     document.getElementById(
@@ -930,40 +1090,62 @@ let currentNickname = null;
 
 
 /* =========================
-   STARS
+   SPACE STARS
 ========================= */
 
 const stars =
-    document.querySelector(".stars");
+    document.querySelector(
+        ".stars"
+    );
 
-for(let i = 0; i < 180; i++) {
+
+for(
+    let i = 0;
+    i < 180;
+    i++
+) {
 
     const star =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
-    star.className =
-        "star";
+
+    star.classList.add(
+        "star"
+    );
 
 
     /* RANDOM POSITION */
 
     star.style.left =
-        Math.random() * 100 + "%";
+        Math.random() * 100 +
+        "%";
 
 
-    /* RANDOM START */
+    /* RANDOM HEIGHT */
 
     star.style.top =
-        Math.random() * 100 + "%";
+        Math.random() * 100 +
+        "%";
 
 
-    /* RANDOM TYPE */
+    /*
+        STAR TYPES
+
+        0 - 55%  small
+        55 - 82% normal
+        82 - 90% bright
+        90 - 95% cross
+        95 - 98% diamond
+        98 - 100% glow
+    */
 
     const type =
         Math.random();
 
 
-    if(type < 0.55) {
+    if(type < .55) {
 
         star.classList.add(
             "small"
@@ -971,7 +1153,7 @@ for(let i = 0; i < 180; i++) {
 
     }
 
-    else if(type < 0.90) {
+    else if(type < .82) {
 
         star.classList.add(
             "normal"
@@ -979,7 +1161,7 @@ for(let i = 0; i < 180; i++) {
 
     }
 
-    else {
+    else if(type < .90) {
 
         star.classList.add(
             "bright"
@@ -987,60 +1169,63 @@ for(let i = 0; i < 180; i++) {
 
     }
 
+    else if(type < .95) {
 
-    /* RANDOM SIZE */
-
-    let size;
-
-
-    if(type < 0.55) {
-
-        size =
-            Math.random() * 1.5 + 0.5;
+        star.classList.add(
+            "cross"
+        );
 
     }
 
-    else if(type < 0.90) {
+    else if(type < .98) {
 
-        size =
-            Math.random() * 2 + 1;
+        star.classList.add(
+            "diamond"
+        );
 
     }
 
     else {
 
-        size =
-            Math.random() * 3 + 2;
+        star.classList.add(
+            "glow"
+        );
 
     }
 
 
-    star.style.width =
-        size + "px";
+    /*
+        RANDOM SPEED
 
-    star.style.height =
-        size + "px";
-
-
-    /* SLOW RANDOM SPEED */
+        10 - 20 seconds
+    */
 
     star.style.animationDuration =
         (
-            Math.random() * 10 + 8
-        ) + "s";
+            Math.random() * 10 +
+            10
+        ) +
+        "s";
 
 
-    /* RANDOM START TIME */
+    /*
+        RANDOM START
+
+        Makes the sky feel
+        already alive.
+    */
 
     star.style.animationDelay =
         (
-            Math.random() * -18
-        ) + "s";
+            Math.random() * -20
+        ) +
+        "s";
 
 
     stars.appendChild(
         star
     );
+
 }
 
 
@@ -1048,19 +1233,25 @@ for(let i = 0; i < 180; i++) {
    HELPERS
 ========================= */
 
-function show(element) {
+function show(
+    element
+) {
 
     element.classList.remove(
         "hidden"
     );
+
 }
 
 
-function hide(element) {
+function hide(
+    element
+) {
 
     element.classList.add(
         "hidden"
     );
+
 }
 
 
@@ -1078,7 +1269,7 @@ function updateCounter() {
 
 
 /* =========================
-   GOOGLE
+   GOOGLE LOGIN
 ========================= */
 
 googleButton.addEventListener(
@@ -1093,7 +1284,8 @@ googleButton.addEventListener(
             await supabaseClient.auth
                 .signInWithOAuth({
 
-                    provider: "google",
+                    provider:
+                        "google",
 
                     options: {
 
@@ -1110,6 +1302,7 @@ googleButton.addEventListener(
             console.error(
                 error
             );
+
 
             loginStatus.textContent =
                 error.message;
@@ -1128,20 +1321,30 @@ guestButton.addEventListener(
     "click",
     () => {
 
-        isGuest = true;
+        isGuest =
+            true;
 
-        currentUser = null;
 
-        currentNickname = null;
+        currentUser =
+            null;
+
+
+        currentNickname =
+            null;
+
 
         userInfo.textContent =
             "👻 Guest";
+
 
         hide(
             loginOverlay
         );
 
-        clicks = 0;
+
+        clicks =
+            0;
+
 
         updateCounter();
 
@@ -1214,6 +1417,7 @@ async function loadProfile() {
             "👤 " +
             currentNickname;
 
+
         hide(
             nicknameOverlay
         );
@@ -1226,6 +1430,7 @@ async function loadProfile() {
             nicknameOverlay
         );
 
+
         nicknameInput.focus();
 
     }
@@ -1234,7 +1439,7 @@ async function loadProfile() {
 
 
 /* =========================
-   FIRST NICKNAME
+   SAVE FIRST NICKNAME
 ========================= */
 
 saveNicknameButton.addEventListener(
@@ -1394,7 +1599,9 @@ leaderboardButton.addEventListener(
                             false
                     }
                 )
-                .limit(100);
+                .limit(
+                    100
+                );
 
 
         if(error) {
@@ -1403,8 +1610,10 @@ leaderboardButton.addEventListener(
                 error
             );
 
+
             leaderboardList.innerHTML =
                 "<p>Could not load leaderboard.</p>";
+
 
             return;
 
@@ -1415,6 +1624,7 @@ leaderboardButton.addEventListener(
 
             leaderboardList.innerHTML =
                 "<p>No players yet.</p>";
+
 
             return;
 
@@ -1517,7 +1727,10 @@ userInfo.addEventListener(
                 .maybeSingle();
 
 
-        if(error || !data) {
+        if(
+            error ||
+            !data
+        ) {
 
             cooldownText.textContent =
                 "Nickname settings unavailable.";
@@ -1693,15 +1906,19 @@ closeLeaderboardButton.addEventListener(
    HTML ESCAPE
 ========================= */
 
-function escapeHtml(text) {
+function escapeHtml(
+    text
+) {
 
     const div =
         document.createElement(
             "div"
         );
 
+
     div.textContent =
         text;
+
 
     return div.innerHTML;
 
@@ -1724,12 +1941,15 @@ async function checkAuth() {
         currentUser =
             data.user;
 
+
         isGuest =
             false;
+
 
         hide(
             loginOverlay
         );
+
 
         await loadProfile();
 
@@ -1761,12 +1981,15 @@ supabaseClient.auth.onAuthStateChange(
             currentUser =
                 session.user;
 
+
             isGuest =
                 false;
+
 
             hide(
                 loginOverlay
             );
+
 
             await loadProfile();
 
