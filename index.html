@@ -55,11 +55,15 @@ body {
     pointer-events: none;
 
     z-index: 0;
+
+    overflow: hidden;
 }
 
 .star {
 
     position: absolute;
+
+    top: -10px;
 
     background: white;
 
@@ -67,6 +71,29 @@ body {
 
     box-shadow:
         0 0 6px rgba(255,255,255,.8);
+
+    animation:
+        starFall linear infinite;
+
+    will-change: transform;
+}
+
+@keyframes starFall {
+
+    from {
+
+        transform:
+            translateY(-10vh);
+
+    }
+
+    to {
+
+        transform:
+            translateY(110vh);
+
+    }
+
 }
 
 
@@ -563,7 +590,9 @@ body {
 </div>
 
 
-<!-- LOGIN -->
+<!-- =========================
+     LOGIN
+========================= -->
 
 <div
     class="overlay"
@@ -602,7 +631,9 @@ body {
 </div>
 
 
-<!-- NICKNAME -->
+<!-- =========================
+     NICKNAME
+========================= -->
 
 <div
     class="overlay hidden"
@@ -641,7 +672,9 @@ body {
 </div>
 
 
-<!-- CHANGE NICKNAME -->
+<!-- =========================
+     CHANGE NICKNAME
+========================= -->
 
 <div
     class="overlay hidden"
@@ -687,7 +720,9 @@ body {
 </div>
 
 
-<!-- LEADERBOARD -->
+<!-- =========================
+     LEADERBOARD
+========================= -->
 
 <div
     class="overlay hidden"
@@ -722,13 +757,16 @@ body {
 <script>
 
 
-/* SUPABASE */
+/* =========================
+   SUPABASE
+========================= */
 
 const SUPABASE_URL =
     "https://usvrsrodbivsjrxityzb.supabase.co";
 
 const SUPABASE_PUBLISHABLE_KEY =
     "sb_publishable_QUghnr59x4oH65LZqQW5zg_7qR7yMr4";
+
 
 const supabaseClient =
     window.supabase.createClient(
@@ -737,73 +775,119 @@ const supabaseClient =
     );
 
 
-/* ELEMENTS */
+/* =========================
+   ELEMENTS
+========================= */
 
 const loginOverlay =
-    document.getElementById("loginOverlay");
+    document.getElementById(
+        "loginOverlay"
+    );
 
 const nicknameOverlay =
-    document.getElementById("nicknameOverlay");
+    document.getElementById(
+        "nicknameOverlay"
+    );
 
 const changeNicknameOverlay =
-    document.getElementById("changeNicknameOverlay");
+    document.getElementById(
+        "changeNicknameOverlay"
+    );
 
 const leaderboardOverlay =
-    document.getElementById("leaderboardOverlay");
+    document.getElementById(
+        "leaderboardOverlay"
+    );
 
 const googleButton =
-    document.getElementById("googleButton");
+    document.getElementById(
+        "googleButton"
+    );
 
 const guestButton =
-    document.getElementById("guestButton");
+    document.getElementById(
+        "guestButton"
+    );
 
 const clickButton =
-    document.getElementById("clickButton");
+    document.getElementById(
+        "clickButton"
+    );
 
 const counter =
-    document.getElementById("counter");
+    document.getElementById(
+        "counter"
+    );
 
 const userInfo =
-    document.getElementById("userInfo");
+    document.getElementById(
+        "userInfo"
+    );
 
 const nicknameInput =
-    document.getElementById("nicknameInput");
+    document.getElementById(
+        "nicknameInput"
+    );
 
 const saveNicknameButton =
-    document.getElementById("saveNicknameButton");
+    document.getElementById(
+        "saveNicknameButton"
+    );
 
 const leaderboardButton =
-    document.getElementById("leaderboardButton");
+    document.getElementById(
+        "leaderboardButton"
+    );
 
 const leaderboardList =
-    document.getElementById("leaderboardList");
+    document.getElementById(
+        "leaderboardList"
+    );
 
 const changeNicknameInput =
-    document.getElementById("changeNicknameInput");
+    document.getElementById(
+        "changeNicknameInput"
+    );
 
 const changeNicknameButton =
-    document.getElementById("changeNicknameButton");
+    document.getElementById(
+        "changeNicknameButton"
+    );
 
 const closeNicknameButton =
-    document.getElementById("closeNicknameButton");
+    document.getElementById(
+        "closeNicknameButton"
+    );
 
 const closeLeaderboardButton =
-    document.getElementById("closeLeaderboardButton");
+    document.getElementById(
+        "closeLeaderboardButton"
+    );
 
 const loginStatus =
-    document.getElementById("loginStatus");
+    document.getElementById(
+        "loginStatus"
+    );
 
 const nicknameStatus =
-    document.getElementById("nicknameStatus");
+    document.getElementById(
+        "nicknameStatus"
+    );
 
 const changeNicknameStatus =
-    document.getElementById("changeNicknameStatus");
+    document.getElementById(
+        "changeNicknameStatus"
+    );
 
 const cooldownText =
-    document.getElementById("cooldownText");
+    document.getElementById(
+        "cooldownText"
+    );
 
 
-/* STATE */
+/* =========================
+   STATE
+========================= */
 
 let currentUser = null;
 
@@ -814,7 +898,9 @@ let clicks = 0;
 let currentNickname = null;
 
 
-/* STARS */
+/* =========================
+   STARS
+========================= */
 
 const stars =
     document.querySelector(".stars");
@@ -824,7 +910,8 @@ for(let i = 0; i < 150; i++) {
     const star =
         document.createElement("div");
 
-    star.className = "star";
+    star.className =
+        "star";
 
     star.style.left =
         Math.random() * 100 + "%";
@@ -841,33 +928,49 @@ for(let i = 0; i < 150; i++) {
     star.style.height =
         size + "px";
 
+    star.style.animationDuration =
+        (Math.random() * 8 + 4) + "s";
+
+    star.style.animationDelay =
+        (Math.random() * -12) + "s";
+
     stars.appendChild(star);
 }
 
 
-/* HELPERS */
+/* =========================
+   HELPERS
+========================= */
 
 function show(element) {
 
-    element.classList.remove("hidden");
+    element.classList.remove(
+        "hidden"
+    );
 }
 
 function hide(element) {
 
-    element.classList.add("hidden");
+    element.classList.add(
+        "hidden"
+    );
 }
 
 function updateCounter() {
 
     counter.textContent =
         clicks +
-        (clicks === 1
-            ? " CLICK"
-            : " CLICKS");
+        (
+            clicks === 1
+                ? " CLICK"
+                : " CLICKS"
+        );
 }
 
 
-/* GOOGLE LOGIN */
+/* =========================
+   GOOGLE
+========================= */
 
 googleButton.addEventListener(
     "click",
@@ -902,7 +1005,9 @@ googleButton.addEventListener(
 );
 
 
-/* GUEST */
+/* =========================
+   GUEST
+========================= */
 
 guestButton.addEventListener(
     "click",
@@ -926,7 +1031,9 @@ guestButton.addEventListener(
 );
 
 
-/* LOAD PROFILE */
+/* =========================
+   LOAD PROFILE
+========================= */
 
 async function loadProfile() {
 
@@ -973,7 +1080,8 @@ async function loadProfile() {
     if(currentNickname) {
 
         userInfo.textContent =
-            "👤 " + currentNickname;
+            "👤 " +
+            currentNickname;
 
         hide(nicknameOverlay);
 
@@ -986,7 +1094,9 @@ async function loadProfile() {
 }
 
 
-/* FIRST NICKNAME */
+/* =========================
+   FIRST NICKNAME
+========================= */
 
 saveNicknameButton.addEventListener(
     "click",
@@ -1028,7 +1138,8 @@ saveNicknameButton.addEventListener(
             data;
 
         userInfo.textContent =
-            "👤 " + currentNickname;
+            "👤 " +
+            currentNickname;
 
         hide(nicknameOverlay);
 
@@ -1038,7 +1149,9 @@ saveNicknameButton.addEventListener(
 );
 
 
-/* CLICK */
+/* =========================
+   CLICK
+========================= */
 
 clickButton.addEventListener(
     "click",
@@ -1073,20 +1186,25 @@ clickButton.addEventListener(
             return;
         }
 
-        clicks = data;
+        clicks =
+            data;
 
         updateCounter();
     }
 );
 
 
-/* LEADERBOARD */
+/* =========================
+   LEADERBOARD
+========================= */
 
 leaderboardButton.addEventListener(
     "click",
     async () => {
 
-        show(leaderboardOverlay);
+        show(
+            leaderboardOverlay
+        );
 
         leaderboardList.innerHTML =
             "<p>Loading...</p>";
@@ -1128,7 +1246,8 @@ leaderboardButton.addEventListener(
             return;
         }
 
-        leaderboardList.innerHTML = "";
+        leaderboardList.innerHTML =
+            "";
 
         data.forEach(
             (player, index) => {
@@ -1168,19 +1287,28 @@ leaderboardButton.addEventListener(
 );
 
 
-/* CHANGE NICKNAME */
+/* =========================
+   CHANGE NICKNAME
+========================= */
 
 userInfo.addEventListener(
     "click",
     async () => {
 
-        if(!currentUser || !currentNickname) {
+        if(
+            !currentUser ||
+            !currentNickname
+        ) {
+
             return;
         }
 
-        show(changeNicknameOverlay);
+        show(
+            changeNicknameOverlay
+        );
 
-        changeNicknameInput.value = "";
+        changeNicknameInput.value =
+            "";
 
         changeNicknameStatus.textContent =
             "";
@@ -1205,7 +1333,9 @@ userInfo.addEventListener(
             return;
         }
 
-        if(!data.nickname_changed_at) {
+        if(
+            !data.nickname_changed_at
+        ) {
 
             cooldownText.textContent =
                 "You can change your nickname.";
@@ -1221,7 +1351,11 @@ userInfo.addEventListener(
         const nextChange =
             new Date(
                 lastChange.getTime() +
-                30 * 24 * 60 * 60 * 1000
+                30 *
+                24 *
+                60 *
+                60 *
+                1000
             );
 
         const now =
@@ -1240,7 +1374,10 @@ userInfo.addEventListener(
                         nextChange - now
                     ) /
                     (
-                        24 * 60 * 60 * 1000
+                        24 *
+                        60 *
+                        60 *
+                        1000
                     )
                 );
 
@@ -1293,20 +1430,27 @@ changeNicknameButton.addEventListener(
             data;
 
         userInfo.textContent =
-            "👤 " + currentNickname;
+            "👤 " +
+            currentNickname;
 
-        hide(changeNicknameOverlay);
+        hide(
+            changeNicknameOverlay
+        );
     }
 );
 
 
-/* CLOSE */
+/* =========================
+   CLOSE BUTTONS
+========================= */
 
 closeNicknameButton.addEventListener(
     "click",
     () => {
 
-        hide(changeNicknameOverlay);
+        hide(
+            changeNicknameOverlay
+        );
 
     }
 );
@@ -1316,18 +1460,24 @@ closeLeaderboardButton.addEventListener(
     "click",
     () => {
 
-        hide(leaderboardOverlay);
+        hide(
+            leaderboardOverlay
+        );
 
     }
 );
 
 
-/* HTML ESCAPE */
+/* =========================
+   HTML ESCAPE
+========================= */
 
 function escapeHtml(text) {
 
     const div =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
     div.textContent =
         text;
@@ -1336,7 +1486,9 @@ function escapeHtml(text) {
 }
 
 
-/* AUTH CHECK */
+/* =========================
+   AUTH CHECK
+========================= */
 
 async function checkAuth() {
 
@@ -1349,7 +1501,8 @@ async function checkAuth() {
         currentUser =
             data.user;
 
-        isGuest = false;
+        isGuest =
+            false;
 
         hide(loginOverlay);
 
@@ -1362,17 +1515,23 @@ async function checkAuth() {
 }
 
 
-/* AUTH EVENTS */
+/* =========================
+   AUTH EVENTS
+========================= */
 
 supabaseClient.auth.onAuthStateChange(
-    async (event, session) => {
+    async (
+        event,
+        session
+    ) => {
 
         if(session?.user) {
 
             currentUser =
                 session.user;
 
-            isGuest = false;
+            isGuest =
+                false;
 
             hide(loginOverlay);
 
@@ -1382,7 +1541,9 @@ supabaseClient.auth.onAuthStateChange(
 );
 
 
-/* START */
+/* =========================
+   START
+========================= */
 
 checkAuth();
 
