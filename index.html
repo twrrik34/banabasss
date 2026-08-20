@@ -5,10 +5,7 @@
 
 <meta charset="UTF-8">
 
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>BANABASSS</title>
 
@@ -50,7 +47,7 @@ body {
 
 
 /* =========================
-   SPACE
+   STARS
 ========================= */
 
 .stars {
@@ -82,12 +79,9 @@ body {
         linear
         infinite;
 
-    will-change:
-        transform;
+    will-change: transform;
 }
 
-
-/* tiny dots */
 
 .star.tiny {
 
@@ -103,8 +97,6 @@ body {
 }
 
 
-/* normal stars */
-
 .star.normal {
 
     width: 2px;
@@ -118,8 +110,6 @@ body {
         rgba(255,255,255,.8);
 }
 
-
-/* bright stars */
 
 .star.bright {
 
@@ -135,15 +125,11 @@ body {
 }
 
 
-/* four-point stars */
-
 .star.cross {
 
     width: 3px;
 
     height: 3px;
-
-    border-radius: 50%;
 
     box-shadow:
 
@@ -163,8 +149,6 @@ body {
 }
 
 
-/* diamond stars */
-
 .star.diamond {
 
     width: 5px;
@@ -180,8 +164,6 @@ body {
         rgba(255,255,255,1);
 }
 
-
-/* glowing stars */
 
 .star.glow {
 
@@ -199,8 +181,6 @@ body {
         rgba(255,255,255,.8);
 }
 
-
-/* star movement */
 
 @keyframes starFall {
 
@@ -230,18 +210,59 @@ body {
 
 
 /* =========================
-   USER INFO
+   TOP BAR
 ========================= */
 
-.user-info {
+.top-bar {
 
     position: fixed;
 
     top: 18px;
 
+    left: 18px;
+
     right: 18px;
 
     z-index: 5;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+}
+
+
+.streak {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    padding: 9px 14px;
+
+    border-radius: 12px;
+
+    background:
+        rgba(255,255,255,.07);
+
+    border:
+        1px solid
+        rgba(255,255,255,.12);
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    text-shadow:
+        0 0 8px
+        rgba(255,255,255,.25);
+}
+
+
+.user-info {
 
     padding: 10px 15px;
 
@@ -671,6 +692,57 @@ body {
 
 @media(max-width:600px) {
 
+    .top-bar {
+
+        top: 10px;
+
+        left: 10px;
+
+        right: 10px;
+
+    }
+
+
+    .streak {
+
+        width: 42px;
+
+        height: 42px;
+
+        padding: 0;
+
+        justify-content: center;
+
+        border-radius: 50%;
+
+        font-size: 16px;
+
+    }
+
+
+    .streak .streak-text {
+
+        display: none;
+
+    }
+
+
+    .streak .streak-number {
+
+        font-size: 15px;
+
+    }
+
+
+    .user-info {
+
+        padding: 9px 12px;
+
+        font-size: 13px;
+
+    }
+
+
     .click-button {
 
         width: 280px;
@@ -678,26 +750,17 @@ body {
         height: 150px;
 
         font-size: 34px;
+
     }
+
 
     .counter {
 
         font-size: 22px;
-    }
 
-    .user-info {
-
-        top: 10px;
-
-        right: 10px;
     }
 
 }
-
-
-/* =========================
-   SUPABASE
-========================= */
 
 </style>
 
@@ -710,11 +773,43 @@ body {
 <div class="stars"></div>
 
 
-<div
-    class="user-info"
-    id="userInfo"
->
-    Guest
+<!-- TOP BAR -->
+
+<div class="top-bar">
+
+
+    <div
+        class="streak"
+        id="streak"
+        title="Daily Streak"
+    >
+
+        <span>🔥</span>
+
+        <span
+            class="streak-number"
+            id="streakNumber"
+        >
+            0
+        </span>
+
+        <span
+            class="streak-text"
+            id="streakText"
+        >
+            DAY STREAK
+        </span>
+
+    </div>
+
+
+    <div
+        class="user-info"
+        id="userInfo"
+    >
+        Guest
+    </div>
+
 </div>
 
 
@@ -743,7 +838,6 @@ body {
     >
         🏆 GLOBAL LEADERBOARD
     </button>
-
 
 </div>
 
@@ -953,124 +1047,109 @@ const loginOverlay =
         "loginOverlay"
     );
 
-
 const nicknameOverlay =
     document.getElementById(
         "nicknameOverlay"
     );
-
 
 const changeNicknameOverlay =
     document.getElementById(
         "changeNicknameOverlay"
     );
 
-
 const leaderboardOverlay =
     document.getElementById(
         "leaderboardOverlay"
     );
-
 
 const googleButton =
     document.getElementById(
         "googleButton"
     );
 
-
 const guestButton =
     document.getElementById(
         "guestButton"
     );
-
 
 const clickButton =
     document.getElementById(
         "clickButton"
     );
 
-
 const counter =
     document.getElementById(
         "counter"
     );
-
 
 const userInfo =
     document.getElementById(
         "userInfo"
     );
 
-
 const nicknameInput =
     document.getElementById(
         "nicknameInput"
     );
-
 
 const saveNicknameButton =
     document.getElementById(
         "saveNicknameButton"
     );
 
-
 const leaderboardButton =
     document.getElementById(
         "leaderboardButton"
     );
-
 
 const leaderboardList =
     document.getElementById(
         "leaderboardList"
     );
 
-
 const changeNicknameInput =
     document.getElementById(
         "changeNicknameInput"
     );
-
 
 const changeNicknameButton =
     document.getElementById(
         "changeNicknameButton"
     );
 
-
 const closeNicknameButton =
     document.getElementById(
         "closeNicknameButton"
     );
-
 
 const closeLeaderboardButton =
     document.getElementById(
         "closeLeaderboardButton"
     );
 
-
 const loginStatus =
     document.getElementById(
         "loginStatus"
     );
-
 
 const nicknameStatus =
     document.getElementById(
         "nicknameStatus"
     );
 
-
 const changeNicknameStatus =
     document.getElementById(
         "changeNicknameStatus"
     );
 
-
 const cooldownText =
     document.getElementById(
         "cooldownText"
+    );
+
+const streakNumber =
+    document.getElementById(
+        "streakNumber"
     );
 
 
@@ -1086,9 +1165,11 @@ let clicks = 0;
 
 let currentNickname = null;
 
+let dailyStreak = 0;
+
 
 /* =========================
-   CREATE 350 STARS
+   STARS
 ========================= */
 
 const stars =
@@ -1097,7 +1178,7 @@ const stars =
     );
 
 
-for (
+for(
     let i = 0;
     i < 350;
     i++
@@ -1128,30 +1209,7 @@ for (
         Math.random();
 
 
-    /*
-        STAR TYPES
-
-        0.00 - 0.55
-        tiny
-
-        0.55 - 0.82
-        normal
-
-        0.82 - 0.90
-        bright
-
-        0.90 - 0.95
-        cross
-
-        0.95 - 0.98
-        diamond
-
-        0.98 - 1.00
-        glow
-    */
-
-
-    if (
+    if(
         randomType < .55
     ) {
 
@@ -1161,7 +1219,7 @@ for (
 
     }
 
-    else if (
+    else if(
         randomType < .82
     ) {
 
@@ -1171,7 +1229,7 @@ for (
 
     }
 
-    else if (
+    else if(
         randomType < .90
     ) {
 
@@ -1181,7 +1239,7 @@ for (
 
     }
 
-    else if (
+    else if(
         randomType < .95
     ) {
 
@@ -1191,7 +1249,7 @@ for (
 
     }
 
-    else if (
+    else if(
         randomType < .98
     ) {
 
@@ -1210,13 +1268,6 @@ for (
     }
 
 
-    /*
-        DIFFERENT SPEEDS
-
-        Most stars are slow.
-        A few are slightly faster.
-    */
-
     star.style.animationDuration =
         (
             13 +
@@ -1224,13 +1275,6 @@ for (
         ) +
         "s";
 
-
-    /*
-        RANDOM START
-
-        Stars don't start
-        together.
-    */
 
     star.style.animationDelay =
         (
@@ -1281,6 +1325,66 @@ function updateCounter() {
                 ? " CLICK"
                 : " CLICKS"
         );
+
+}
+
+
+function updateStreak(
+    value
+) {
+
+    dailyStreak =
+        Number(value) || 0;
+
+
+    streakNumber.textContent =
+        dailyStreak;
+
+}
+
+
+/* =========================
+   DAILY STREAK
+========================= */
+
+async function updateDailyStreak() {
+
+    if(!currentUser) {
+
+        return;
+
+    }
+
+
+    const { data, error } =
+        await supabaseClient
+            .rpc(
+                "update_daily_streak"
+            );
+
+
+    if(error) {
+
+        console.error(
+            "Daily streak error:",
+            error
+        );
+
+        return;
+
+    }
+
+
+    if(
+        data &&
+        data.length
+    ) {
+
+        updateStreak(
+            data[0].streak
+        );
+
+    }
 
 }
 
@@ -1344,6 +1448,10 @@ guestButton.addEventListener(
 
         currentNickname = null;
 
+        dailyStreak = 0;
+
+        updateStreak(0);
+
         userInfo.textContent =
             "👻 Guest";
 
@@ -1376,7 +1484,7 @@ async function loadProfile() {
         await supabaseClient
             .from("leadboard")
             .select(
-                "username, clicks, nickname_changed_at"
+                "username, clicks, nickname_changed_at, daily_streak"
             )
             .eq(
                 "user_id",
@@ -1418,6 +1526,11 @@ async function loadProfile() {
     updateCounter();
 
 
+    updateStreak(
+        data.daily_streak
+    );
+
+
     if(currentNickname) {
 
         userInfo.textContent =
@@ -1442,11 +1555,14 @@ async function loadProfile() {
 
     }
 
+
+    await updateDailyStreak();
+
 }
 
 
 /* =========================
-   FIRST NICKNAME
+   SAVE FIRST NICKNAME
 ========================= */
 
 saveNicknameButton.addEventListener(
