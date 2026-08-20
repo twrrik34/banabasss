@@ -1,21 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 <meta charset="UTF-8">
 
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>BANABASSS</title>
+<title>CLICK ME</title>
 
-<link
-    rel="icon"
-    type="image/png"
-    href="logo.png.png"
->
+<link rel="icon" type="image/png" href="logo.png.png">
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -66,21 +58,15 @@ body {
 .stars {
     position: fixed;
     inset: 0;
-
     overflow: hidden;
-
     pointer-events: none;
-
     z-index: 0;
 }
 
 .star {
     position: absolute;
-
     top: -30px;
-
     background: white;
-
     border-radius: 50%;
 
     animation:
@@ -94,7 +80,6 @@ body {
 .star.tiny {
     width: 1px;
     height: 1px;
-
     opacity: .45;
 
     box-shadow:
@@ -105,7 +90,6 @@ body {
 .star.normal {
     width: 2px;
     height: 2px;
-
     opacity: .75;
 
     box-shadow:
@@ -116,7 +100,6 @@ body {
 .star.bright {
     width: 3px;
     height: 3px;
-
     opacity: 1;
 
     box-shadow:
@@ -261,41 +244,21 @@ body {
 
 
 /* =========================
-   MAIN
-========================= */
-
-.container {
-    position: relative;
-
-    z-index: 2;
-
-    min-height: 100vh;
-
-    display: flex;
-
-    flex-direction: column;
-
-    justify-content: center;
-
-    align-items: center;
-
-    gap: 22px;
-
-    padding:
-        100px 20px 40px;
-}
-
-
-/* =========================
    TODAY'S WINNER
 ========================= */
 
 .today-winner {
-    position: relative;
+    position: fixed;
 
-    min-height: 62px;
+    top: 24px;
+    left: 50%;
 
-    margin-bottom: 4px;
+    transform:
+        translateX(-50%);
+
+    z-index: 15;
+
+    min-height: 55px;
 
     text-align: center;
 
@@ -306,10 +269,14 @@ body {
     align-items: center;
 
     justify-content: center;
+
+    pointer-events: none;
+
+    white-space: nowrap;
 }
 
 .today-title {
-    font-size: 11px;
+    font-size: 10px;
 
     letter-spacing: 3px;
 
@@ -318,7 +285,7 @@ body {
     color:
         rgba(255,255,255,.55);
 
-    margin-bottom: 7px;
+    margin-bottom: 6px;
 
     text-transform: uppercase;
 }
@@ -341,12 +308,6 @@ body {
     padding-left: 9px;
 }
 
-
-/*
-   Tacı nick'in sol üstüne
-   hafif eğik yerleştiriyoruz.
-*/
-
 .winner-crown {
     position: absolute;
 
@@ -368,14 +329,14 @@ body {
 }
 
 .winner-clicks {
-    font-size: 14px;
+    font-size: 13px;
 
     font-weight: 700;
 
     color:
         rgba(255,255,255,.65);
 
-    margin-top: 3px;
+    margin-top: 2px;
 }
 
 .no-winner {
@@ -383,6 +344,32 @@ body {
         rgba(255,255,255,.4);
 
     font-size: 13px;
+}
+
+
+/* =========================
+   MAIN
+========================= */
+
+.container {
+    position: relative;
+
+    z-index: 2;
+
+    min-height: 100vh;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 22px;
+
+    padding:
+        100px 20px 40px;
 }
 
 
@@ -503,7 +490,7 @@ body {
 
 
 /* =========================
-   OVERLAYS
+   OVERLAY
 ========================= */
 
 .overlay {
@@ -759,13 +746,15 @@ body {
         top: 10px;
 
         left: 10px;
-
         right: 10px;
+    }
+
+    .today-winner {
+        top: 60px;
     }
 
     .streak {
         width: 42px;
-
         height: 42px;
 
         padding: 0;
@@ -793,21 +782,15 @@ body {
     }
 
     .container {
-        padding-top: 85px;
+        padding-top: 110px;
 
         gap: 18px;
-    }
-
-    .today-winner {
-        min-height: 56px;
     }
 
     .today-title {
         font-size: 9px;
 
         letter-spacing: 2.5px;
-
-        margin-bottom: 5px;
     }
 
     .winner-name {
@@ -863,9 +846,7 @@ body {
 <body>
 
 
-<!-- =========================
-     STARS
-========================= -->
+<!-- STARS -->
 
 <div
     class="stars"
@@ -873,9 +854,7 @@ body {
 ></div>
 
 
-<!-- =========================
-     TOP BAR
-========================= -->
+<!-- TOP BAR -->
 
 <div class="top-bar">
 
@@ -912,38 +891,34 @@ body {
 </div>
 
 
-<!-- =========================
-     MAIN
-========================= -->
+<!-- TODAY'S WINNER -->
 
-<div class="container">
+<div
+    class="today-winner"
+    id="todayWinner"
+>
 
-
-    <!-- TODAY'S WINNER -->
+    <div class="today-title">
+        TODAY'S WINNER
+    </div>
 
     <div
-        class="today-winner"
-        id="todayWinner"
+        id="winnerContent"
     >
 
-        <div class="today-title">
-            TODAY'S WINNER
-        </div>
-
-        <div
-            id="winnerContent"
-        >
-
-            <div class="no-winner">
-                No winner yet
-            </div>
-
+        <div class="no-winner">
+            No winner yet
         </div>
 
     </div>
 
+</div>
 
-    <!-- CLICK COUNTER -->
+
+<!-- MAIN -->
+
+<div class="container">
+
 
     <div
         class="counter"
@@ -953,8 +928,6 @@ body {
     </div>
 
 
-    <!-- MAIN BUTTON -->
-
     <button
         class="click-button"
         id="clickButton"
@@ -962,8 +935,6 @@ body {
         CLICK ME
     </button>
 
-
-    <!-- LEADERBOARD -->
 
     <button
         class="leaderboard-button"
@@ -975,9 +946,7 @@ body {
 </div>
 
 
-<!-- =========================
-     LOGIN
-========================= -->
+<!-- LOGIN -->
 
 <div
     class="overlay hidden"
@@ -1021,9 +990,7 @@ body {
 </div>
 
 
-<!-- =========================
-     NICKNAME
-========================= -->
+<!-- NICKNAME -->
 
 <div
     class="overlay hidden"
@@ -1052,7 +1019,7 @@ body {
         <button
             class="primary-button"
             id="saveNicknameButton"
-        >
+    >
             Continue
         </button>
 
@@ -1067,9 +1034,7 @@ body {
 </div>
 
 
-<!-- =========================
-     PROFILE / LOGOUT
-========================= -->
+<!-- PROFILE -->
 
 <div
     class="overlay hidden"
@@ -1115,9 +1080,7 @@ body {
 </div>
 
 
-<!-- =========================
-     CHANGE NICKNAME
-========================= -->
+<!-- CHANGE NICKNAME -->
 
 <div
     class="overlay hidden"
@@ -1169,9 +1132,7 @@ body {
 </div>
 
 
-<!-- =========================
-     LEADERBOARD
-========================= -->
+<!-- LEADERBOARD -->
 
 <div
     class="overlay hidden"
@@ -1217,10 +1178,8 @@ body {
 const SUPABASE_URL =
     "https://usvrsrodbivsjrxityzb.supabase.co";
 
-
 const SUPABASE_PUBLISHABLE_KEY =
     "sb_publishable_QUghnr59x4oH65LZqQW5zg_7qR7yMr4";
-
 
 const supabaseClient =
     window.supabase.createClient(
@@ -1349,58 +1308,42 @@ for (
     const star =
         document.createElement("div");
 
-
     star.classList.add("star");
-
 
     star.style.left =
         Math.random() * 100 + "%";
 
-
     star.style.top =
         Math.random() * 100 + "%";
 
-
     const type =
         Math.random();
-
 
     if (type < .55) {
 
         star.classList.add("tiny");
 
-    }
-
-    else if (type < .82) {
+    } else if (type < .82) {
 
         star.classList.add("normal");
 
-    }
-
-    else if (type < .90) {
+    } else if (type < .90) {
 
         star.classList.add("bright");
 
-    }
-
-    else if (type < .95) {
+    } else if (type < .95) {
 
         star.classList.add("cross");
 
-    }
-
-    else if (type < .98) {
+    } else if (type < .98) {
 
         star.classList.add("diamond");
 
-    }
-
-    else {
+    } else {
 
         star.classList.add("glow");
 
     }
-
 
     star.style.animationDuration =
         (
@@ -1408,12 +1351,10 @@ for (
             Math.random() * 12
         ) + "s";
 
-
     star.style.animationDelay =
         (
             Math.random() * -25
         ) + "s";
-
 
     stars.appendChild(star);
 
@@ -1425,18 +1366,12 @@ for (
 ========================= */
 
 function show(element) {
-
     element.classList.remove("hidden");
-
 }
-
 
 function hide(element) {
-
     element.classList.add("hidden");
-
 }
-
 
 function updateCounter() {
 
@@ -1450,18 +1385,15 @@ function updateCounter() {
 
 }
 
-
 function updateStreak(value) {
 
     dailyStreak =
         Number(value) || 0;
 
-
     streakNumber.textContent =
         dailyStreak;
 
 }
-
 
 function escapeHtml(text) {
 
@@ -1483,8 +1415,8 @@ function escapeHtml(text) {
 async function loadTodaysWinner() {
 
     /*
-       Today's Winner =
-       YESTERDAY'S daily leader.
+       TODAY'S WINNER =
+       YESTERDAY'S DAILY LEADER
     */
 
     const yesterday =
@@ -1493,7 +1425,6 @@ async function loadTodaysWinner() {
     yesterday.setDate(
         yesterday.getDate() - 1
     );
-
 
     const year =
         yesterday.getFullYear();
@@ -1507,7 +1438,6 @@ async function loadTodaysWinner() {
         String(
             yesterday.getDate()
         ).padStart(2, "0");
-
 
     const yesterdayString =
         `${year}-${month}-${day}`;
@@ -1579,12 +1509,10 @@ async function loadTodaysWinner() {
     const winner =
         data[0];
 
-
     const name =
         escapeHtml(
             winner.username
         );
-
 
     const score =
         Number(
@@ -1622,7 +1550,6 @@ async function updateDailyStreak() {
         return;
     }
 
-
     const {
         data,
         error
@@ -1631,7 +1558,6 @@ async function updateDailyStreak() {
             .rpc(
                 "update_daily_streak"
             );
-
 
     if (error) {
 
@@ -1643,7 +1569,6 @@ async function updateDailyStreak() {
         return;
 
     }
-
 
     if (
         data &&
@@ -1670,7 +1595,6 @@ googleButton.addEventListener(
         loginStatus.textContent =
             "Opening Google...";
 
-
         const {
             error
         } =
@@ -1688,7 +1612,6 @@ googleButton.addEventListener(
                     }
 
                 });
-
 
         if (error) {
 
@@ -1742,7 +1665,6 @@ async function loadProfile() {
         return;
     }
 
-
     const {
         data,
         error
@@ -1772,7 +1694,6 @@ async function loadProfile() {
 
     }
 
-
     if (!data) {
 
         console.error(
@@ -1787,15 +1708,12 @@ async function loadProfile() {
     currentNickname =
         data.username;
 
-
     clicks =
         Number(
             data.clicks || 0
         );
 
-
     updateCounter();
-
 
     updateStreak(
         data.daily_streak
@@ -1810,9 +1728,7 @@ async function loadProfile() {
 
         hide(nicknameOverlay);
 
-    }
-
-    else {
+    } else {
 
         show(nicknameOverlay);
 
@@ -1837,7 +1753,6 @@ saveNicknameButton.addEventListener(
         const nickname =
             nicknameInput.value.trim();
 
-
         if (!nickname) {
 
             nicknameStatus.textContent =
@@ -1847,10 +1762,8 @@ saveNicknameButton.addEventListener(
 
         }
 
-
         nicknameStatus.textContent =
             "Saving...";
-
 
         const {
             data,
@@ -1865,7 +1778,6 @@ saveNicknameButton.addEventListener(
                     }
                 );
 
-
         if (error) {
 
             nicknameStatus.textContent =
@@ -1875,18 +1787,14 @@ saveNicknameButton.addEventListener(
 
         }
 
-
         currentNickname =
             data;
-
 
         userInfo.textContent =
             "👤 " +
             currentNickname;
 
-
         hide(nicknameOverlay);
-
 
         nicknameStatus.textContent =
             "";
@@ -1945,7 +1853,6 @@ clickButton.addEventListener(
         clicks =
             Number(data);
 
-
         updateCounter();
 
     }
@@ -1963,7 +1870,6 @@ leaderboardButton.addEventListener(
         show(
             leaderboardOverlay
         );
-
 
         leaderboardList.innerHTML =
             "<p>Loading...</p>";
@@ -2028,10 +1934,8 @@ leaderboardButton.addEventListener(
                         "div"
                     );
 
-
                 row.className =
                     "leader-row";
-
 
                 row.innerHTML =
                     `
@@ -2052,7 +1956,6 @@ leaderboardButton.addEventListener(
                     </div>
                     `;
 
-
                 leaderboardList.appendChild(
                     row
                 );
@@ -2065,12 +1968,12 @@ leaderboardButton.addEventListener(
 
 
 /* =========================
-   PROFILE MENU
+   PROFILE
 ========================= */
 
 userInfo.addEventListener(
     "click",
-    async () => {
+    () => {
 
         if (
             !currentUser ||
@@ -2081,10 +1984,8 @@ userInfo.addEventListener(
 
         }
 
-
         profileName.textContent =
             currentNickname;
-
 
         show(profileOverlay);
 
@@ -2107,7 +2008,6 @@ logoutButton.addEventListener(
                 .auth
                 .signOut();
 
-
         if (error) {
 
             console.error(error);
@@ -2115,7 +2015,6 @@ logoutButton.addEventListener(
             return;
 
         }
-
 
         currentUser = null;
 
@@ -2127,32 +2026,23 @@ logoutButton.addEventListener(
 
         dailyStreak = 0;
 
-
         updateCounter();
 
         updateStreak(0);
 
-
         userInfo.textContent =
             "Guest";
-
 
         hide(profileOverlay);
 
         show(loginOverlay);
-
-
-        /*
-           Winner ekranda kalabilir.
-           Çünkü Today's Winner herkese açık bilgidir.
-        */
 
     }
 );
 
 
 /* =========================
-   PROFILE -> CHANGE NICKNAME
+   CHANGE NICKNAME
 ========================= */
 
 profileNicknameButton.addEventListener(
@@ -2167,7 +2057,6 @@ profileNicknameButton.addEventListener(
 
         changeNicknameStatus.textContent =
             "";
-
 
         const {
             data,
@@ -2215,7 +2104,6 @@ profileNicknameButton.addEventListener(
                 data.nickname_changed_at
             );
 
-
         const nextChange =
             new Date(
                 lastChange.getTime() +
@@ -2225,7 +2113,6 @@ profileNicknameButton.addEventListener(
                 60 *
                 1000
             );
-
 
         const now =
             new Date();
@@ -2238,9 +2125,7 @@ profileNicknameButton.addEventListener(
             cooldownText.textContent =
                 "You can change your nickname.";
 
-        }
-
-        else {
+        } else {
 
             const days =
                 Math.ceil(
@@ -2256,7 +2141,6 @@ profileNicknameButton.addEventListener(
                     )
                 );
 
-
             cooldownText.textContent =
                 "You can change your nickname in " +
                 days +
@@ -2269,7 +2153,7 @@ profileNicknameButton.addEventListener(
 
 
 /* =========================
-   CHANGE NICKNAME
+   SAVE CHANGED NICKNAME
 ========================= */
 
 changeNicknameButton.addEventListener(
@@ -2278,7 +2162,6 @@ changeNicknameButton.addEventListener(
 
         const nickname =
             changeNicknameInput.value.trim();
-
 
         if (!nickname) {
 
@@ -2321,15 +2204,12 @@ changeNicknameButton.addEventListener(
         currentNickname =
             data;
 
-
         userInfo.textContent =
             "👤 " +
             currentNickname;
 
-
         profileName.textContent =
             currentNickname;
-
 
         hide(changeNicknameOverlay);
 
@@ -2338,7 +2218,7 @@ changeNicknameButton.addEventListener(
 
 
 /* =========================
-   CLOSE PROFILE
+   CLOSE BUTTONS
 ========================= */
 
 closeProfileButton.addEventListener(
@@ -2350,11 +2230,6 @@ closeProfileButton.addEventListener(
     }
 );
 
-
-/* =========================
-   CLOSE NICKNAME
-========================= */
-
 closeNicknameButton.addEventListener(
     "click",
     () => {
@@ -2363,11 +2238,6 @@ closeNicknameButton.addEventListener(
 
     }
 );
-
-
-/* =========================
-   CLOSE LEADERBOARD
-========================= */
 
 closeLeaderboardButton.addEventListener(
     "click",
@@ -2404,19 +2274,12 @@ async function checkAuth() {
 
         await loadProfile();
 
-    }
-
-    else {
+    } else {
 
         show(loginOverlay);
 
     }
 
-
-    /*
-       Her durumda dünün liderini
-       göster.
-    */
 
     await loadTodaysWinner();
 
@@ -2459,8 +2322,8 @@ checkAuth();
 
 
 /*
-   Winner bilgisini ara sıra
-   yenilemek için.
+   Her dakika Today's Winner
+   yenilenir.
 */
 
 setInterval(
