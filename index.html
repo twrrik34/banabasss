@@ -2,10 +2,12 @@
 <html lang="en">
 
 <head>
-
 <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
 <title>BANABASSS</title>
 
@@ -19,30 +21,41 @@
 
 <style>
 
+/* =========================
+   RESET
+========================= */
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+html,
 body {
+    width: 100%;
+    min-height: 100%;
+}
 
+body {
     min-height: 100vh;
-
     overflow-x: hidden;
 
     background:
         radial-gradient(
             circle at 50% 45%,
-            #11182f 0%,
-            #080d20 30%,
-            #030612 65%,
-            #010208 100%
+            #121a38 0%,
+            #090e22 32%,
+            #030611 68%,
+            #010207 100%
         );
 
     color: white;
 
-    font-family: Arial, sans-serif;
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
 }
 
 
@@ -51,9 +64,7 @@ body {
 ========================= */
 
 .stars {
-
     position: fixed;
-
     inset: 0;
 
     overflow: hidden;
@@ -63,9 +74,7 @@ body {
     z-index: 0;
 }
 
-
 .star {
-
     position: absolute;
 
     top: -30px;
@@ -82,11 +91,8 @@ body {
     will-change: transform;
 }
 
-
 .star.tiny {
-
     width: 1px;
-
     height: 1px;
 
     opacity: .45;
@@ -96,11 +102,8 @@ body {
         rgba(255,255,255,.5);
 }
 
-
 .star.normal {
-
     width: 2px;
-
     height: 2px;
 
     opacity: .75;
@@ -110,11 +113,8 @@ body {
         rgba(255,255,255,.8);
 }
 
-
 .star.bright {
-
     width: 3px;
-
     height: 3px;
 
     opacity: 1;
@@ -124,35 +124,20 @@ body {
         rgba(255,255,255,1);
 }
 
-
 .star.cross {
-
     width: 3px;
-
     height: 3px;
 
     box-shadow:
-
         0 0 5px white,
-
-        0 -8px 7px
-        rgba(255,255,255,.7),
-
-        0 8px 7px
-        rgba(255,255,255,.7),
-
-        -8px 0 7px
-        rgba(255,255,255,.7),
-
-        8px 0 7px
-        rgba(255,255,255,.7);
+        0 -8px 7px rgba(255,255,255,.7),
+        0 8px 7px rgba(255,255,255,.7),
+        -8px 0 7px rgba(255,255,255,.7),
+        8px 0 7px rgba(255,255,255,.7);
 }
 
-
 .star.diamond {
-
     width: 5px;
-
     height: 5px;
 
     border-radius: 0;
@@ -164,46 +149,35 @@ body {
         rgba(255,255,255,1);
 }
 
-
 .star.glow {
-
     width: 4px;
-
     height: 4px;
 
     box-shadow:
-
         0 0 6px white,
-
         0 0 14px white,
-
         0 0 26px
         rgba(255,255,255,.8);
 }
 
-
 @keyframes starFall {
 
     from {
-
         transform:
             translate3d(
                 0,
                 -15vh,
                 0
             );
-
     }
 
     to {
-
         transform:
             translate3d(
                 0,
                 115vh,
                 0
             );
-
     }
 
 }
@@ -214,16 +188,13 @@ body {
 ========================= */
 
 .top-bar {
-
     position: fixed;
 
     top: 18px;
-
     left: 18px;
-
     right: 18px;
 
-    z-index: 5;
+    z-index: 10;
 
     display: flex;
 
@@ -233,8 +204,11 @@ body {
 }
 
 
-.streak {
+/* =========================
+   STREAK
+========================= */
 
+.streak {
     display: flex;
 
     align-items: center;
@@ -262,8 +236,11 @@ body {
 }
 
 
-.user-info {
+/* =========================
+   USER
+========================= */
 
+.user-info {
     padding: 10px 15px;
 
     border-radius: 12px;
@@ -278,6 +255,8 @@ body {
     font-size: 14px;
 
     cursor: pointer;
+
+    user-select: none;
 }
 
 
@@ -286,7 +265,6 @@ body {
 ========================= */
 
 .container {
-
     position: relative;
 
     z-index: 2;
@@ -301,12 +279,118 @@ body {
 
     align-items: center;
 
-    gap: 24px;
+    gap: 22px;
+
+    padding:
+        100px 20px 40px;
 }
 
 
-.counter {
+/* =========================
+   TODAY'S WINNER
+========================= */
 
+.today-winner {
+    position: relative;
+
+    min-height: 62px;
+
+    margin-bottom: 4px;
+
+    text-align: center;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+}
+
+.today-title {
+    font-size: 11px;
+
+    letter-spacing: 3px;
+
+    font-weight: 800;
+
+    color:
+        rgba(255,255,255,.55);
+
+    margin-bottom: 7px;
+
+    text-transform: uppercase;
+}
+
+.winner-name {
+    position: relative;
+
+    display: inline-block;
+
+    font-size: 18px;
+
+    font-weight: 900;
+
+    letter-spacing: .5px;
+
+    text-shadow:
+        0 0 12px
+        rgba(255,255,255,.25);
+
+    padding-left: 9px;
+}
+
+
+/*
+   Tacı nick'in sol üstüne
+   hafif eğik yerleştiriyoruz.
+*/
+
+.winner-crown {
+    position: absolute;
+
+    left: -17px;
+    top: -15px;
+
+    font-size: 16px;
+
+    transform:
+        rotate(-17deg);
+
+    filter:
+        drop-shadow(
+            0 0 5px
+            rgba(255,255,255,.35)
+        );
+
+    z-index: 2;
+}
+
+.winner-clicks {
+    font-size: 14px;
+
+    font-weight: 700;
+
+    color:
+        rgba(255,255,255,.65);
+
+    margin-top: 3px;
+}
+
+.no-winner {
+    color:
+        rgba(255,255,255,.4);
+
+    font-size: 13px;
+}
+
+
+/* =========================
+   COUNTER
+========================= */
+
+.counter {
     color: white;
 
     font-size: 26px;
@@ -326,11 +410,9 @@ body {
 ========================= */
 
 .click-button {
-
     position: relative;
 
     width: 360px;
-
     height: 180px;
 
     border: none;
@@ -362,11 +444,11 @@ body {
     transition:
         transform .08s ease,
         box-shadow .08s ease;
+
+    user-select: none;
 }
 
-
 .click-button:active {
-
     transform:
         translateY(18px);
 
@@ -376,17 +458,13 @@ body {
         rgba(0,0,0,.5);
 }
 
-
 .click-button::before {
-
     content: "";
 
     position: absolute;
 
     top: 10px;
-
     left: 12px;
-
     right: 12px;
 
     height: 35px;
@@ -405,7 +483,6 @@ body {
 ========================= */
 
 .leaderboard-button {
-
     padding: 12px 22px;
 
     border-radius: 12px;
@@ -426,11 +503,10 @@ body {
 
 
 /* =========================
-   OVERLAY
+   OVERLAYS
 ========================= */
 
 .overlay {
-
     position: fixed;
 
     inset: 0;
@@ -458,9 +534,7 @@ body {
         opacity .25s ease;
 }
 
-
 .overlay.hidden {
-
     opacity: 0;
 
     pointer-events: none;
@@ -472,9 +546,12 @@ body {
 ========================= */
 
 .modal {
-
     width:
         min(92%, 420px);
+
+    max-height: 90vh;
+
+    overflow-y: auto;
 
     padding: 32px 26px;
 
@@ -494,17 +571,13 @@ body {
     text-align: center;
 }
 
-
 .modal h1 {
-
     font-size: 30px;
 
     margin-bottom: 10px;
 }
 
-
 .modal p {
-
     color: #aaa;
 
     font-size: 14px;
@@ -518,7 +591,6 @@ body {
 ========================= */
 
 .nickname-input {
-
     width: 100%;
 
     height: 52px;
@@ -545,14 +617,14 @@ body {
 
 
 /* =========================
-   BUTTONS
+   MODAL BUTTONS
 ========================= */
 
 .primary-button,
 .secondary-button,
 .google-button,
-.guest-button {
-
+.guest-button,
+.logout-button {
     width: 100%;
 
     height: 52px;
@@ -568,9 +640,7 @@ body {
     cursor: pointer;
 }
 
-
 .primary-button {
-
     border: none;
 
     background:
@@ -579,9 +649,7 @@ body {
     color: white;
 }
 
-
 .secondary-button {
-
     border:
         1px solid
         rgba(255,255,255,.15);
@@ -592,9 +660,7 @@ body {
     color: white;
 }
 
-
 .google-button {
-
     border: none;
 
     background: white;
@@ -602,14 +668,21 @@ body {
     color: #222;
 }
 
-
 .guest-button {
-
     border:
         1px solid
         rgba(255,255,255,.15);
 
     background: transparent;
+
+    color: white;
+}
+
+.logout-button {
+    border: none;
+
+    background:
+        #b91c1c;
 
     color: white;
 }
@@ -620,7 +693,6 @@ body {
 ========================= */
 
 .leaderboard-list {
-
     max-height: 380px;
 
     overflow-y: auto;
@@ -628,9 +700,7 @@ body {
     margin-top: 20px;
 }
 
-
 .leader-row {
-
     display: flex;
 
     justify-content: space-between;
@@ -647,25 +717,19 @@ body {
         rgba(255,255,255,.05);
 }
 
-
 .rank {
-
     width: 40px;
 
     font-weight: 900;
 }
 
-
 .nick {
-
     flex: 1;
 
     text-align: left;
 }
 
-
 .score {
-
     font-weight: 900;
 }
 
@@ -675,7 +739,6 @@ body {
 ========================= */
 
 .status {
-
     min-height: 20px;
 
     margin-top: 15px;
@@ -690,21 +753,17 @@ body {
    MOBILE
 ========================= */
 
-@media(max-width:600px) {
+@media(max-width: 600px) {
 
     .top-bar {
-
         top: 10px;
 
         left: 10px;
 
         right: 10px;
-
     }
 
-
     .streak {
-
         width: 42px;
 
         height: 42px;
@@ -716,71 +775,112 @@ body {
         border-radius: 50%;
 
         font-size: 16px;
-
     }
-
 
     .streak .streak-text {
-
         display: none;
-
     }
-
 
     .streak .streak-number {
-
         font-size: 15px;
-
     }
-
 
     .user-info {
-
-        padding: 9px 12px;
+        padding:
+            9px 12px;
 
         font-size: 13px;
-
     }
 
+    .container {
+        padding-top: 85px;
+
+        gap: 18px;
+    }
+
+    .today-winner {
+        min-height: 56px;
+    }
+
+    .today-title {
+        font-size: 9px;
+
+        letter-spacing: 2.5px;
+
+        margin-bottom: 5px;
+    }
+
+    .winner-name {
+        font-size: 16px;
+    }
+
+    .winner-crown {
+        left: -15px;
+        top: -13px;
+
+        font-size: 14px;
+    }
+
+    .winner-clicks {
+        font-size: 12px;
+    }
+
+    .counter {
+        font-size: 22px;
+    }
 
     .click-button {
-
         width: 280px;
 
         height: 150px;
 
         font-size: 34px;
-
     }
 
+}
 
-    .counter {
 
-        font-size: 22px;
+/* =========================
+   VERY SMALL PHONES
+========================= */
 
+@media(max-width: 350px) {
+
+    .click-button {
+        width: 250px;
+
+        height: 135px;
+
+        font-size: 30px;
     }
 
 }
 
 </style>
-
 </head>
 
 
 <body>
 
 
-<div class="stars"></div>
+<!-- =========================
+     STARS
+========================= -->
+
+<div
+    class="stars"
+    id="stars"
+></div>
 
 
-<!-- TOP BAR -->
+<!-- =========================
+     TOP BAR
+========================= -->
 
 <div class="top-bar">
 
-
     <div
         class="streak"
-        id="streak"
         title="Daily Streak"
     >
 
@@ -795,7 +895,6 @@ body {
 
         <span
             class="streak-text"
-            id="streakText"
         >
             DAY STREAK
         </span>
@@ -813,8 +912,38 @@ body {
 </div>
 
 
+<!-- =========================
+     MAIN
+========================= -->
+
 <div class="container">
 
+
+    <!-- TODAY'S WINNER -->
+
+    <div
+        class="today-winner"
+        id="todayWinner"
+    >
+
+        <div class="today-title">
+            TODAY'S WINNER
+        </div>
+
+        <div
+            id="winnerContent"
+        >
+
+            <div class="no-winner">
+                No winner yet
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- CLICK COUNTER -->
 
     <div
         class="counter"
@@ -824,6 +953,8 @@ body {
     </div>
 
 
+    <!-- MAIN BUTTON -->
+
     <button
         class="click-button"
         id="clickButton"
@@ -831,6 +962,8 @@ body {
         CLICK ME
     </button>
 
+
+    <!-- LEADERBOARD -->
 
     <button
         class="leaderboard-button"
@@ -842,16 +975,20 @@ body {
 </div>
 
 
-<!-- LOGIN -->
+<!-- =========================
+     LOGIN
+========================= -->
 
 <div
-    class="overlay"
+    class="overlay hidden"
     id="loginOverlay"
 >
 
     <div class="modal">
 
-        <h1>BANABASSS</h1>
+        <h1>
+            BANABASSS
+        </h1>
 
         <p>
             Choose how you want to enter
@@ -884,7 +1021,9 @@ body {
 </div>
 
 
-<!-- NICKNAME -->
+<!-- =========================
+     NICKNAME
+========================= -->
 
 <div
     class="overlay hidden"
@@ -928,7 +1067,57 @@ body {
 </div>
 
 
-<!-- CHANGE NICKNAME -->
+<!-- =========================
+     PROFILE / LOGOUT
+========================= -->
+
+<div
+    class="overlay hidden"
+    id="profileOverlay"
+>
+
+    <div class="modal">
+
+        <h1>
+            👤 Profile
+        </h1>
+
+        <p id="profileName">
+            Guest
+        </p>
+
+
+        <button
+            class="logout-button"
+            id="logoutButton"
+        >
+            🚪 LOG OUT
+        </button>
+
+
+        <button
+            class="secondary-button"
+            id="profileNicknameButton"
+        >
+            ✏️ Change nickname
+        </button>
+
+
+        <button
+            class="secondary-button"
+            id="closeProfileButton"
+        >
+            Close
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     CHANGE NICKNAME
+========================= -->
 
 <div
     class="overlay hidden"
@@ -980,7 +1169,9 @@ body {
 </div>
 
 
-<!-- LEADERBOARD -->
+<!-- =========================
+     LEADERBOARD
+========================= -->
 
 <div
     class="overlay hidden"
@@ -1042,115 +1233,92 @@ const supabaseClient =
    ELEMENTS
 ========================= */
 
+const stars =
+    document.getElementById("stars");
+
 const loginOverlay =
-    document.getElementById(
-        "loginOverlay"
-    );
+    document.getElementById("loginOverlay");
 
 const nicknameOverlay =
-    document.getElementById(
-        "nicknameOverlay"
-    );
+    document.getElementById("nicknameOverlay");
+
+const profileOverlay =
+    document.getElementById("profileOverlay");
 
 const changeNicknameOverlay =
-    document.getElementById(
-        "changeNicknameOverlay"
-    );
+    document.getElementById("changeNicknameOverlay");
 
 const leaderboardOverlay =
-    document.getElementById(
-        "leaderboardOverlay"
-    );
+    document.getElementById("leaderboardOverlay");
 
 const googleButton =
-    document.getElementById(
-        "googleButton"
-    );
+    document.getElementById("googleButton");
 
 const guestButton =
-    document.getElementById(
-        "guestButton"
-    );
+    document.getElementById("guestButton");
 
 const clickButton =
-    document.getElementById(
-        "clickButton"
-    );
+    document.getElementById("clickButton");
 
 const counter =
-    document.getElementById(
-        "counter"
-    );
+    document.getElementById("counter");
 
 const userInfo =
-    document.getElementById(
-        "userInfo"
-    );
-
-const nicknameInput =
-    document.getElementById(
-        "nicknameInput"
-    );
-
-const saveNicknameButton =
-    document.getElementById(
-        "saveNicknameButton"
-    );
-
-const leaderboardButton =
-    document.getElementById(
-        "leaderboardButton"
-    );
-
-const leaderboardList =
-    document.getElementById(
-        "leaderboardList"
-    );
-
-const changeNicknameInput =
-    document.getElementById(
-        "changeNicknameInput"
-    );
-
-const changeNicknameButton =
-    document.getElementById(
-        "changeNicknameButton"
-    );
-
-const closeNicknameButton =
-    document.getElementById(
-        "closeNicknameButton"
-    );
-
-const closeLeaderboardButton =
-    document.getElementById(
-        "closeLeaderboardButton"
-    );
-
-const loginStatus =
-    document.getElementById(
-        "loginStatus"
-    );
-
-const nicknameStatus =
-    document.getElementById(
-        "nicknameStatus"
-    );
-
-const changeNicknameStatus =
-    document.getElementById(
-        "changeNicknameStatus"
-    );
-
-const cooldownText =
-    document.getElementById(
-        "cooldownText"
-    );
+    document.getElementById("userInfo");
 
 const streakNumber =
-    document.getElementById(
-        "streakNumber"
-    );
+    document.getElementById("streakNumber");
+
+const winnerContent =
+    document.getElementById("winnerContent");
+
+const nicknameInput =
+    document.getElementById("nicknameInput");
+
+const saveNicknameButton =
+    document.getElementById("saveNicknameButton");
+
+const leaderboardButton =
+    document.getElementById("leaderboardButton");
+
+const leaderboardList =
+    document.getElementById("leaderboardList");
+
+const logoutButton =
+    document.getElementById("logoutButton");
+
+const profileName =
+    document.getElementById("profileName");
+
+const profileNicknameButton =
+    document.getElementById("profileNicknameButton");
+
+const closeProfileButton =
+    document.getElementById("closeProfileButton");
+
+const changeNicknameInput =
+    document.getElementById("changeNicknameInput");
+
+const changeNicknameButton =
+    document.getElementById("changeNicknameButton");
+
+const closeNicknameButton =
+    document.getElementById("closeNicknameButton");
+
+const closeLeaderboardButton =
+    document.getElementById("closeLeaderboardButton");
+
+const loginStatus =
+    document.getElementById("loginStatus");
+
+const nicknameStatus =
+    document.getElementById("nicknameStatus");
+
+const changeNicknameStatus =
+    document.getElementById("changeNicknameStatus");
+
+const cooldownText =
+    document.getElementById("cooldownText");
 
 
 /* =========================
@@ -1172,98 +1340,64 @@ let dailyStreak = 0;
    STARS
 ========================= */
 
-const stars =
-    document.querySelector(
-        ".stars"
-    );
-
-
-for(
+for (
     let i = 0;
     i < 350;
     i++
 ) {
 
     const star =
-        document.createElement(
-            "div"
-        );
+        document.createElement("div");
 
 
-    star.classList.add(
-        "star"
-    );
+    star.classList.add("star");
 
 
     star.style.left =
-        Math.random() * 100 +
-        "%";
+        Math.random() * 100 + "%";
 
 
     star.style.top =
-        Math.random() * 100 +
-        "%";
+        Math.random() * 100 + "%";
 
 
-    const randomType =
+    const type =
         Math.random();
 
 
-    if(
-        randomType < .55
-    ) {
+    if (type < .55) {
 
-        star.classList.add(
-            "tiny"
-        );
+        star.classList.add("tiny");
 
     }
 
-    else if(
-        randomType < .82
-    ) {
+    else if (type < .82) {
 
-        star.classList.add(
-            "normal"
-        );
+        star.classList.add("normal");
 
     }
 
-    else if(
-        randomType < .90
-    ) {
+    else if (type < .90) {
 
-        star.classList.add(
-            "bright"
-        );
+        star.classList.add("bright");
 
     }
 
-    else if(
-        randomType < .95
-    ) {
+    else if (type < .95) {
 
-        star.classList.add(
-            "cross"
-        );
+        star.classList.add("cross");
 
     }
 
-    else if(
-        randomType < .98
-    ) {
+    else if (type < .98) {
 
-        star.classList.add(
-            "diamond"
-        );
+        star.classList.add("diamond");
 
     }
 
     else {
 
-        star.classList.add(
-            "glow"
-        );
+        star.classList.add("glow");
 
     }
 
@@ -1272,20 +1406,16 @@ for(
         (
             13 +
             Math.random() * 12
-        ) +
-        "s";
+        ) + "s";
 
 
     star.style.animationDelay =
         (
             Math.random() * -25
-        ) +
-        "s";
+        ) + "s";
 
 
-    stars.appendChild(
-        star
-    );
+    stars.appendChild(star);
 
 }
 
@@ -1294,24 +1424,16 @@ for(
    HELPERS
 ========================= */
 
-function show(
-    element
-) {
+function show(element) {
 
-    element.classList.remove(
-        "hidden"
-    );
+    element.classList.remove("hidden");
 
 }
 
 
-function hide(
-    element
-) {
+function hide(element) {
 
-    element.classList.add(
-        "hidden"
-    );
+    element.classList.add("hidden");
 
 }
 
@@ -1319,7 +1441,7 @@ function hide(
 function updateCounter() {
 
     counter.textContent =
-        clicks +
+        Number(clicks).toLocaleString() +
         (
             clicks === 1
                 ? " CLICK"
@@ -1329,9 +1451,7 @@ function updateCounter() {
 }
 
 
-function updateStreak(
-    value
-) {
+function updateStreak(value) {
 
     dailyStreak =
         Number(value) || 0;
@@ -1343,30 +1463,180 @@ function updateStreak(
 }
 
 
+function escapeHtml(text) {
+
+    const div =
+        document.createElement("div");
+
+    div.textContent =
+        text ?? "";
+
+    return div.innerHTML;
+
+}
+
+
 /* =========================
-   DAILY STREAK
+   TODAY'S WINNER
 ========================= */
 
-async function updateDailyStreak() {
+async function loadTodaysWinner() {
 
-    if(!currentUser) {
+    /*
+       Today's Winner =
+       YESTERDAY'S daily leader.
+    */
+
+    const yesterday =
+        new Date();
+
+    yesterday.setDate(
+        yesterday.getDate() - 1
+    );
+
+
+    const year =
+        yesterday.getFullYear();
+
+    const month =
+        String(
+            yesterday.getMonth() + 1
+        ).padStart(2, "0");
+
+    const day =
+        String(
+            yesterday.getDate()
+        ).padStart(2, "0");
+
+
+    const yesterdayString =
+        `${year}-${month}-${day}`;
+
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient
+            .from("leadboard")
+            .select(
+                "username, daily_clicks"
+            )
+            .eq(
+                "daily_click_date",
+                yesterdayString
+            )
+            .not(
+                "username",
+                "is",
+                null
+            )
+            .order(
+                "daily_clicks",
+                {
+                    ascending: false
+                }
+            )
+            .limit(1);
+
+
+    if (error) {
+
+        console.error(
+            "Today's Winner error:",
+            error
+        );
+
+        winnerContent.innerHTML =
+            `
+            <div class="no-winner">
+                Winner unavailable
+            </div>
+            `;
 
         return;
 
     }
 
 
-    const { data, error } =
+    if (
+        !data ||
+        data.length === 0
+    ) {
+
+        winnerContent.innerHTML =
+            `
+            <div class="no-winner">
+                No winner yet
+            </div>
+            `;
+
+        return;
+
+    }
+
+
+    const winner =
+        data[0];
+
+
+    const name =
+        escapeHtml(
+            winner.username
+        );
+
+
+    const score =
+        Number(
+            winner.daily_clicks || 0
+        ).toLocaleString();
+
+
+    winnerContent.innerHTML =
+        `
+        <div class="winner-name">
+
+            <span class="winner-crown">
+                👑
+            </span>
+
+            ${name}
+
+        </div>
+
+        <div class="winner-clicks">
+            ${score} CLICKS
+        </div>
+        `;
+
+}
+
+
+/* =========================
+   DAILY STREAK
+========================= */
+
+async function updateDailyStreak() {
+
+    if (!currentUser) {
+        return;
+    }
+
+
+    const {
+        data,
+        error
+    } =
         await supabaseClient
             .rpc(
                 "update_daily_streak"
             );
 
 
-    if(error) {
+    if (error) {
 
         console.error(
-            "Daily streak error:",
+            "Streak error:",
             error
         );
 
@@ -1375,7 +1645,7 @@ async function updateDailyStreak() {
     }
 
 
-    if(
+    if (
         data &&
         data.length
     ) {
@@ -1390,7 +1660,7 @@ async function updateDailyStreak() {
 
 
 /* =========================
-   GOOGLE
+   GOOGLE LOGIN
 ========================= */
 
 googleButton.addEventListener(
@@ -1401,12 +1671,14 @@ googleButton.addEventListener(
             "Opening Google...";
 
 
-        const { error } =
-            await supabaseClient.auth
+        const {
+            error
+        } =
+            await supabaseClient
+                .auth
                 .signInWithOAuth({
 
-                    provider:
-                        "google",
+                    provider: "google",
 
                     options: {
 
@@ -1418,12 +1690,9 @@ googleButton.addEventListener(
                 });
 
 
-        if(error) {
+        if (error) {
 
-            console.error(
-                error
-            );
-
+            console.error(error);
 
             loginStatus.textContent =
                 error.message;
@@ -1448,20 +1717,16 @@ guestButton.addEventListener(
 
         currentNickname = null;
 
-        dailyStreak = 0;
+        clicks = 0;
+
+        updateCounter();
 
         updateStreak(0);
 
         userInfo.textContent =
             "👻 Guest";
 
-        hide(
-            loginOverlay
-        );
-
-        clicks = 0;
-
-        updateCounter();
+        hide(loginOverlay);
 
     }
 );
@@ -1473,18 +1738,24 @@ guestButton.addEventListener(
 
 async function loadProfile() {
 
-    if(!currentUser) {
-
+    if (!currentUser) {
         return;
-
     }
 
 
-    const { data, error } =
+    const {
+        data,
+        error
+    } =
         await supabaseClient
             .from("leadboard")
             .select(
-                "username, clicks, nickname_changed_at, daily_streak"
+                `
+                username,
+                clicks,
+                daily_streak,
+                nickname_changed_at
+                `
             )
             .eq(
                 "user_id",
@@ -1493,18 +1764,16 @@ async function loadProfile() {
             .maybeSingle();
 
 
-    if(error) {
+    if (error) {
 
-        console.error(
-            error
-        );
+        console.error(error);
 
         return;
 
     }
 
 
-    if(!data) {
+    if (!data) {
 
         console.error(
             "Profile not found"
@@ -1520,7 +1789,9 @@ async function loadProfile() {
 
 
     clicks =
-        data.clicks || 0;
+        Number(
+            data.clicks || 0
+        );
 
 
     updateCounter();
@@ -1531,25 +1802,19 @@ async function loadProfile() {
     );
 
 
-    if(currentNickname) {
+    if (currentNickname) {
 
         userInfo.textContent =
             "👤 " +
             currentNickname;
 
-
-        hide(
-            nicknameOverlay
-        );
+        hide(nicknameOverlay);
 
     }
 
     else {
 
-        show(
-            nicknameOverlay
-        );
-
+        show(nicknameOverlay);
 
         nicknameInput.focus();
 
@@ -1562,7 +1827,7 @@ async function loadProfile() {
 
 
 /* =========================
-   SAVE FIRST NICKNAME
+   FIRST NICKNAME
 ========================= */
 
 saveNicknameButton.addEventListener(
@@ -1573,7 +1838,7 @@ saveNicknameButton.addEventListener(
             nicknameInput.value.trim();
 
 
-        if(!nickname) {
+        if (!nickname) {
 
             nicknameStatus.textContent =
                 "Enter a nickname.";
@@ -1587,7 +1852,10 @@ saveNicknameButton.addEventListener(
             "Saving...";
 
 
-        const { data, error } =
+        const {
+            data,
+            error
+        } =
             await supabaseClient
                 .rpc(
                     "change_nickname",
@@ -1598,7 +1866,7 @@ saveNicknameButton.addEventListener(
                 );
 
 
-        if(error) {
+        if (error) {
 
             nicknameStatus.textContent =
                 error.message;
@@ -1617,9 +1885,7 @@ saveNicknameButton.addEventListener(
             currentNickname;
 
 
-        hide(
-            nicknameOverlay
-        );
+        hide(nicknameOverlay);
 
 
         nicknameStatus.textContent =
@@ -1637,7 +1903,7 @@ clickButton.addEventListener(
     "click",
     async () => {
 
-        if(isGuest) {
+        if (isGuest) {
 
             clicks++;
 
@@ -1648,29 +1914,28 @@ clickButton.addEventListener(
         }
 
 
-        if(!currentUser) {
+        if (!currentUser) {
 
-            show(
-                loginOverlay
-            );
+            show(loginOverlay);
 
             return;
 
         }
 
 
-        const { data, error } =
+        const {
+            data,
+            error
+        } =
             await supabaseClient
                 .rpc(
                     "increment_clicks"
                 );
 
 
-        if(error) {
+        if (error) {
 
-            console.error(
-                error
-            );
+            console.error(error);
 
             return;
 
@@ -1678,7 +1943,7 @@ clickButton.addEventListener(
 
 
         clicks =
-            data;
+            Number(data);
 
 
         updateCounter();
@@ -1688,7 +1953,7 @@ clickButton.addEventListener(
 
 
 /* =========================
-   LEADERBOARD
+   GLOBAL LEADERBOARD
 ========================= */
 
 leaderboardButton.addEventListener(
@@ -1704,7 +1969,10 @@ leaderboardButton.addEventListener(
             "<p>Loading...</p>";
 
 
-        const { data, error } =
+        const {
+            data,
+            error
+        } =
             await supabaseClient
                 .from("leadboard")
                 .select(
@@ -1718,21 +1986,15 @@ leaderboardButton.addEventListener(
                 .order(
                     "clicks",
                     {
-                        ascending:
-                            false
+                        ascending: false
                     }
                 )
-                .limit(
-                    100
-                );
+                .limit(100);
 
 
-        if(error) {
+        if (error) {
 
-            console.error(
-                error
-            );
-
+            console.error(error);
 
             leaderboardList.innerHTML =
                 "<p>Could not load leaderboard.</p>";
@@ -1742,7 +2004,7 @@ leaderboardButton.addEventListener(
         }
 
 
-        if(!data.length) {
+        if (!data.length) {
 
             leaderboardList.innerHTML =
                 "<p>No players yet.</p>";
@@ -1752,8 +2014,7 @@ leaderboardButton.addEventListener(
         }
 
 
-        leaderboardList.innerHTML =
-            "";
+        leaderboardList.innerHTML = "";
 
 
         data.forEach(
@@ -1772,8 +2033,8 @@ leaderboardButton.addEventListener(
                     "leader-row";
 
 
-                row.innerHTML = `
-
+                row.innerHTML =
+                    `
                     <div class="rank">
                         ${index + 1}
                     </div>
@@ -1789,8 +2050,7 @@ leaderboardButton.addEventListener(
                             player.clicks || 0
                         ).toLocaleString()}
                     </div>
-
-                `;
+                    `;
 
 
                 leaderboardList.appendChild(
@@ -1805,14 +2065,14 @@ leaderboardButton.addEventListener(
 
 
 /* =========================
-   CHANGE NICKNAME
+   PROFILE MENU
 ========================= */
 
 userInfo.addEventListener(
     "click",
     async () => {
 
-        if(
+        if (
             !currentUser ||
             !currentNickname
         ) {
@@ -1822,20 +2082,97 @@ userInfo.addEventListener(
         }
 
 
-        show(
-            changeNicknameOverlay
-        );
+        profileName.textContent =
+            currentNickname;
 
 
-        changeNicknameInput.value =
-            "";
+        show(profileOverlay);
 
+    }
+);
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+logoutButton.addEventListener(
+    "click",
+    async () => {
+
+        const {
+            error
+        } =
+            await supabaseClient
+                .auth
+                .signOut();
+
+
+        if (error) {
+
+            console.error(error);
+
+            return;
+
+        }
+
+
+        currentUser = null;
+
+        currentNickname = null;
+
+        isGuest = false;
+
+        clicks = 0;
+
+        dailyStreak = 0;
+
+
+        updateCounter();
+
+        updateStreak(0);
+
+
+        userInfo.textContent =
+            "Guest";
+
+
+        hide(profileOverlay);
+
+        show(loginOverlay);
+
+
+        /*
+           Winner ekranda kalabilir.
+           Çünkü Today's Winner herkese açık bilgidir.
+        */
+
+    }
+);
+
+
+/* =========================
+   PROFILE -> CHANGE NICKNAME
+========================= */
+
+profileNicknameButton.addEventListener(
+    "click",
+    async () => {
+
+        hide(profileOverlay);
+
+        show(changeNicknameOverlay);
+
+        changeNicknameInput.value = "";
 
         changeNicknameStatus.textContent =
             "";
 
 
-        const { data, error } =
+        const {
+            data,
+            error
+        } =
             await supabaseClient
                 .from("leadboard")
                 .select(
@@ -1848,7 +2185,7 @@ userInfo.addEventListener(
                 .maybeSingle();
 
 
-        if(
+        if (
             error ||
             !data
         ) {
@@ -1861,7 +2198,7 @@ userInfo.addEventListener(
         }
 
 
-        if(
+        if (
             !data.nickname_changed_at
         ) {
 
@@ -1894,7 +2231,7 @@ userInfo.addEventListener(
             new Date();
 
 
-        if(
+        if (
             now >= nextChange
         ) {
 
@@ -1932,7 +2269,7 @@ userInfo.addEventListener(
 
 
 /* =========================
-   CHANGE NICKNAME BUTTON
+   CHANGE NICKNAME
 ========================= */
 
 changeNicknameButton.addEventListener(
@@ -1943,7 +2280,7 @@ changeNicknameButton.addEventListener(
             changeNicknameInput.value.trim();
 
 
-        if(!nickname) {
+        if (!nickname) {
 
             changeNicknameStatus.textContent =
                 "Enter a nickname.";
@@ -1957,7 +2294,10 @@ changeNicknameButton.addEventListener(
             "Saving...";
 
 
-        const { data, error } =
+        const {
+            data,
+            error
+        } =
             await supabaseClient
                 .rpc(
                     "change_nickname",
@@ -1968,7 +2308,7 @@ changeNicknameButton.addEventListener(
                 );
 
 
-        if(error) {
+        if (error) {
 
             changeNicknameStatus.textContent =
                 error.message;
@@ -1987,63 +2327,56 @@ changeNicknameButton.addEventListener(
             currentNickname;
 
 
-        hide(
-            changeNicknameOverlay
-        );
+        profileName.textContent =
+            currentNickname;
+
+
+        hide(changeNicknameOverlay);
 
     }
 );
 
 
 /* =========================
-   CLOSE
+   CLOSE PROFILE
+========================= */
+
+closeProfileButton.addEventListener(
+    "click",
+    () => {
+
+        hide(profileOverlay);
+
+    }
+);
+
+
+/* =========================
+   CLOSE NICKNAME
 ========================= */
 
 closeNicknameButton.addEventListener(
     "click",
     () => {
 
-        hide(
-            changeNicknameOverlay
-        );
-
-    }
-);
-
-
-closeLeaderboardButton.addEventListener(
-    "click",
-    () => {
-
-        hide(
-            leaderboardOverlay
-        );
+        hide(changeNicknameOverlay);
 
     }
 );
 
 
 /* =========================
-   HTML ESCAPE
+   CLOSE LEADERBOARD
 ========================= */
 
-function escapeHtml(
-    text
-) {
+closeLeaderboardButton.addEventListener(
+    "click",
+    () => {
 
-    const div =
-        document.createElement(
-            "div"
-        );
+        hide(leaderboardOverlay);
 
-
-    div.textContent =
-        text;
-
-
-    return div.innerHTML;
-
-}
+    }
+);
 
 
 /* =========================
@@ -2052,25 +2385,22 @@ function escapeHtml(
 
 async function checkAuth() {
 
-    const { data } =
-        await supabaseClient.auth
+    const {
+        data
+    } =
+        await supabaseClient
+            .auth
             .getUser();
 
 
-    if(data.user) {
+    if (data.user) {
 
         currentUser =
             data.user;
 
+        isGuest = false;
 
-        isGuest =
-            false;
-
-
-        hide(
-            loginOverlay
-        );
-
+        hide(loginOverlay);
 
         await loadProfile();
 
@@ -2078,46 +2408,47 @@ async function checkAuth() {
 
     else {
 
-        show(
-            loginOverlay
-        );
+        show(loginOverlay);
 
     }
+
+
+    /*
+       Her durumda dünün liderini
+       göster.
+    */
+
+    await loadTodaysWinner();
 
 }
 
 
 /* =========================
-   AUTH EVENTS
+   AUTH STATE
 ========================= */
 
-supabaseClient.auth.onAuthStateChange(
-    async (
-        event,
-        session
-    ) => {
+supabaseClient.auth
+    .onAuthStateChange(
+        async (
+            event,
+            session
+        ) => {
 
-        if(session?.user) {
+            if (session?.user) {
 
-            currentUser =
-                session.user;
+                currentUser =
+                    session.user;
 
+                isGuest = false;
 
-            isGuest =
-                false;
+                hide(loginOverlay);
 
+                await loadProfile();
 
-            hide(
-                loginOverlay
-            );
-
-
-            await loadProfile();
+            }
 
         }
-
-    }
-);
+    );
 
 
 /* =========================
@@ -2126,8 +2457,18 @@ supabaseClient.auth.onAuthStateChange(
 
 checkAuth();
 
+
+/*
+   Winner bilgisini ara sıra
+   yenilemek için.
+*/
+
+setInterval(
+    loadTodaysWinner,
+    60000
+);
+
 </script>
 
 </body>
-
 </html>
